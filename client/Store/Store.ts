@@ -11,7 +11,6 @@ export interface IActionType extends Action {
 export interface IStoreState {
   loginStatus: boolean;
   loading: boolean;
-  data: Object;
 }
 
 const initialState = {
@@ -19,19 +18,12 @@ const initialState = {
     return {
       loginStatus: false,
       loading: false,
-      data: {},
     }
   }
 }
 
 function reducer (state: IStoreState = initialState.state, action: IActionType) {
   switch (action.type) {
-
-    case `${ActionTypes.ONDATA}`:
-    return {
-      ...state,
-      data: action.payload,
-    };
 
     case `${ActionTypes.LOGIN}${AsyncActionTypes.BEGIN}`:
     return {

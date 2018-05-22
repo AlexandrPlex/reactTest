@@ -9,10 +9,15 @@ export class Actions {
   constructor(private dispatch: Dispatch<IDispatchProps>) {
   }
 
-  onData = () => {
+  onLogin = () => {
+    this.dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.BEGIN}`});
     this.dispatch((dispatch: Dispatch<IDispatchProps>) => {
       fetch('http://localhost:8080/login',
       {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
         method: 'POST',
         mode: 'cors',
         body: JSON.stringify({
@@ -20,46 +25,14 @@ export class Actions {
           pass: 'bb'
         })
       })
-        .then(response => {
-          console.log(response);
-          if (response.status === 200) {
-            return response.json();
-          } else {
-            throw 'error';
-          }
-        })
-        .then(data => {
-          console.log(data);
-
-          dispatch({type: `${ActionTypes.ONDATA}`, payload: data});
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    });
-  }
-
-  onLogin = () => {
-    this.dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.BEGIN}`});
-    this.dispatch((dispatch: Dispatch<IDispatchProps>) => {
-
-      //Простейший асинхронный экшен
-      // setTimeout(() => {
-      //   dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.SUCCESS}`});
-      // }, 2000)
-
-      //Экшен для запроса к РЕСТам
-      //fetch('http://www.mocky.io/v2/5aafaf2c2d000048006eff2c') //404
-      fetch('http://www.mocky.io/v2/5aafaf6f2d000057006eff31') //200 - true
-      //fetch('http://www.mocky.io/v2/5aafafa32d000056006eff3b') //200 - false
-        .then(response => {
-          console.log(response);
-          if (response.status === 200) {
-            return response.json();
-          } else {
-            throw 'error';
-          }
-        })
+      .then(response => {
+        console.log(response);
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw 'error';
+        }
+      })
         .then(data => {
           console.log(data);
           //формат ответа:

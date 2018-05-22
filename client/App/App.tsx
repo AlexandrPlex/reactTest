@@ -7,7 +7,6 @@ import {IStoreState} from '../Store/Store';
 interface IStateProps {
   loginStatus: boolean;
   loading: boolean;
-  data: Object;
 }
 
 type TProps = IDispatchProps & IStateProps;
@@ -24,13 +23,6 @@ class App extends React.Component<TProps, {}> {
     actions.onLogout();
   };
 
-  handledata = () => {
-    const {actions} = this.props;
-    actions.onData();
-  };
-  componentWillUpdate(){
-    console.log(this.props.data);
-  }
   render () {
     return (
       <div>
@@ -38,7 +30,6 @@ class App extends React.Component<TProps, {}> {
         <input value={`${this.props.loginStatus} : ${this.props.loading}`} />
         <button onClick={this.handleLogin}> login </button>
         <button onClick={this.handleLogout}> logout</button>
-        <button onClick={this.handledata}> logout</button>
       </div>
     );
   }
@@ -48,7 +39,6 @@ function mapStateToProps(state: IStoreState): IStateProps {
   return {
     loginStatus: state.loginStatus,
     loading: state.loading,
-    data: state.data,
   };
 }
 
