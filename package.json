@@ -30,10 +30,15 @@
     "babel-loader": "5.*"
   },
   "dependencies": {
+    "@types/password-hash": "^1.2.20",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.0.0",
     "cors": "^2.8.4",
+    "exports-loader": "^0.7.0",
     "express": "^4.16.3",
+    "import-loader": "^1.0.1",
+    "imports-loader": "^0.8.0",
+    "password-hash": "^1.2.2",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
     "react-redux": "^5.0.2",

@@ -9,7 +9,7 @@ export class Actions {
   constructor(private dispatch: Dispatch<IDispatchProps>) {
   }
 
-  onLogin = () => {
+  onLogin = (login: string, passowrd: string) => {
     this.dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.BEGIN}`});
     this.dispatch((dispatch: Dispatch<IDispatchProps>) => {
       fetch('http://localhost:8080/login',
@@ -21,8 +21,8 @@ export class Actions {
         method: 'POST',
         mode: 'cors',
         body: JSON.stringify({
-          login: 'aa',
-          pass: 'bb'
+          login: login,
+          pass: passowrd
         })
       })
       .then(response => {
