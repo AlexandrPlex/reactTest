@@ -26,7 +26,6 @@ export class Actions {
         })
       })
       .then(response => {
-        console.log(response);
         if (response.status === 200) {
           return response.json();
         } else {
@@ -34,10 +33,7 @@ export class Actions {
         }
       })
         .then(data => {
-          console.log(data);
-          //формат ответа:
-          //{"data": {"authorized": true}}
-          dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.SUCCESS}`, payload: data});
+            dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.SUCCESS}`, payload: data});
         })
         .catch(error => {
           dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.FAILURE}`, payload: error});

@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
+
 const app = express();
 
 // // Set up connection of database
@@ -20,8 +21,13 @@ app.use(cors({ origin: '*' }));
 
 // RESTful api handlers
 app.post('/login', (req, res) => {
-	console.log(req.body);
-    res.send(JSON.stringify({data:{authorized:true}}));
+		console.log(req.body);
+	var login = 'admin';
+	var password = '20e0cbcd3cf233b748ebc24193b9afa7bfd8636b';
+
+		res.send(JSON.stringify({data:{authorized:true}}));
+
+
 });
 
 

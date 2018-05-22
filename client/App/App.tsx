@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 import {Actions, IDispatchProps} from '../Actions/Actions';
 import {IStoreState} from '../Store/Store';
-import * as hash from 'password-hash';
+import * as hash from 'object-hash';
 
 interface IStateProps {
   loginStatus: boolean;
@@ -22,7 +22,7 @@ class App extends React.Component<TProps, {loginValue: string, passwordValue: st
   }
   handleLogin = () => { 
     const {actions} = this.props;
-    actions.onLogin(this.state.loginValue, hash.generate(this.state.passwordValue));
+    actions.onLogin(this.state.loginValue, hash.sha1(this.state.passwordValue));
   };
 
   handleLogout = () => {
