@@ -41,6 +41,9 @@ app.post('/login', (req, res) => {
     });
 });
 
+app.get('/Organith', (req, res) =>{
+	db.listOrganith().then(data=>res.send(data));
+});
 
 const server = app.listen(serverPort, function() {
     console.log(`Server is up and running on port ${serverPort}`);

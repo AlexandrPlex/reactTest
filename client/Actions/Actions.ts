@@ -47,5 +47,5 @@ export class Actions {
     });
   };
 
-  onLogout = () => this.dispatch({type: ActionTypes.LOGOUT})
+  // onLogout = () => 
 }
