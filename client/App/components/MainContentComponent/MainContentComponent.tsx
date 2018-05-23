@@ -11,18 +11,12 @@ interface IStateProps {
 type TProps = IDispatchProps & IStateProps;
 
 class MainContentComponent extends React.Component<TProps, {}> {
-  componentDidMount(){
-    console.log(this.props.loginStatus)
-    // if(this.props.loginStatus == false){
-    //   document.location.href = '/';
-    // }
-  }
   render () {
-    return (
-      <div>
-        <h1>Main component</h1><button> asd</button>
-      </div>
-    );
+      return (
+        <div>
+          <h1>Main component</h1><button> {this.props.loginStatus}</button>
+        </div>
+      );   
   }
 };
 

@@ -1,7 +1,9 @@
-import {Action, applyMiddleware, createStore} from 'redux';
+import {Action, applyMiddleware, createStore,/* combineReducers*/} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import {ActionTypes, AsyncActionTypes} from '../Actions/Consts';
+//import { routerReducer } from 'react-router-redux';
+
 
 export interface IActionType extends Action {
   type: string;
@@ -22,7 +24,7 @@ const initialState = {
   }
 }
 
-function reducer (state: IStoreState = initialState.state, action: IActionType) {
+export default function reducer (state: IStoreState = initialState.state, action: IActionType) {
   switch (action.type) {
 
     case `${ActionTypes.LOGIN}${AsyncActionTypes.BEGIN}`:
@@ -48,6 +50,8 @@ function reducer (state: IStoreState = initialState.state, action: IActionType) 
   return state;
 }
 
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
+const store = createStore(reducer, 
+  composeWithDevTools(applyMiddleware(thunk))
+);
 
 export {store as appStore};

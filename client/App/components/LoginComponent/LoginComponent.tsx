@@ -4,6 +4,8 @@ import {Dispatch} from 'redux';
 import {Actions, IDispatchProps} from '../../../Actions/Actions';
 import {IStoreState} from '../../../Store/Store';
 import * as hash from 'object-hash';
+import * as PropTypes from 'prop-types';
+
 
 interface IStateProps {
   loginStatus: boolean;
@@ -13,8 +15,11 @@ interface IStateProps {
 type TProps = IDispatchProps & IStateProps;
 
 class LoginComponent extends React.Component<TProps, {loginValue: string, passwordValue: string}> {
-  constructor(){
-    super();
+  static contextTypes = {
+      router: PropTypes.object
+    }
+  constructor(props: any, context: any){
+    super(props, context);
     this.state = {
       loginValue    : "",
       passwordValue : ""
@@ -22,17 +27,21 @@ class LoginComponent extends React.Component<TProps, {loginValue: string, passwo
   }
 
   componentDidUpdate(){
-    if(this.props.loginStatus == true){
-      document.location.href = "/main";
+    if(sessionStorage.getItem('session') == 'true'){
+        //document.location.href = '/main';
+        this.context.router.history.push("/main");
     }
   }
 
   handleLogin = () => { 
+    console.log(this.props.loading)
     const {actions} = this.props;
     actions.onLogin(this.state.loginValue, hash.sha1(this.state.passwordValue));
+    //document.location.href = '/main';
   };
 
   handleLogout = () => {
+    console.log(this.props)
     const {actions} = this.props;
     actions.onLogout();
   };
@@ -52,7 +61,7 @@ class LoginComponent extends React.Component<TProps, {loginValue: string, passwo
         <button onClick={this.handleLogin}> login </button>
         <button onClick={this.handleLogout}> logout</button>
         <br />
-        <input disabled value={`${this.props.loginStatus} : ${this.props.loading}`} />
+        <input disabled value={`${this.props.loading} : ${this.props.loading}`} />
       </div>
     );
   }

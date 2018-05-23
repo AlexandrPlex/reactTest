@@ -33,6 +33,7 @@ export class Actions {
         }
       })
         .then(data => {
+            sessionStorage.setItem('session', data.data.authorized);
             dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.SUCCESS}`, payload: data});
         })
         .catch(error => {
