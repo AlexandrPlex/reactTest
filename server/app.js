@@ -22,15 +22,21 @@ app.use(cors({ origin: '*' }));
 
 app.post('/login', (req, res) => {
     db.listUsers().then(data => {
-    	// [...data].map((el)=>{
-    	// 	if(el.login == req.dody.login){
-    	// 		if(el.password == req.body.password){
-    	// 			res.send('true');
-    	// 		}
-    	// 	}
-    	// });
-    	res.send(req.body.login);
-    	res.send('false');
+    	[...data].map((el)=>{
+    		if(el.login === req.body.login && el.password === req.body.password){
+    			res.send({
+    				data:{
+    					authorized: true
+    				}
+    			});
+    		}
+    	});
+    	res.send({
+    		data:{
+    			authorized: false
+    		}
+    	});
+    	
     });
 });
 

@@ -22,7 +22,7 @@ export class Actions {
         mode: 'cors',
         body: JSON.stringify({
           login: login,
-          pass: passowrd
+          password: passowrd
         })
       })
       .then(response => {
