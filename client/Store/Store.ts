@@ -2,8 +2,6 @@ import {Action, applyMiddleware, createStore,/* combineReducers*/} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import {ActionTypes, AsyncActionTypes} from '../Actions/Consts';
-//import { routerReducer } from 'react-router-redux';
-
 
 export interface IActionType extends Action {
   type: string;

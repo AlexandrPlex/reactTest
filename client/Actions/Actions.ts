@@ -33,8 +33,13 @@ export class Actions {
         }
       })
         .then(data => {
-            sessionStorage.setItem('session', data.data.authorized);
             dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.SUCCESS}`, payload: data});
+            if(data.data.authorized == false){
+              alert('Неверный логин или пароль.');
+            }else{
+              sessionStorage.setItem('sess', 'true');
+              document.location.href = '/main';
+            }
         })
         .catch(error => {
           dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.FAILURE}`, payload: error});

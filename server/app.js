@@ -1,8 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import session from 'express-session';
-import MongoStore from 'connect-mongo';
 
 import { serverPort } from '../etc/config.json';
 
