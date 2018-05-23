@@ -2,13 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-import {userList, setUpConnection} from './loginUtils/loginUtils.tsx';
-
 
 const app = express();
 
-// Set up connection of database
-setUpConnection();
+// // Set up connection of database
+// db.setUpConnection();
 
 // Using bodyParser middleware
 app.use(bodyParser.urlencoded({
@@ -24,7 +22,6 @@ app.use(cors({ origin: '*' }));
 // RESTful api handlers
 app.post('/login', (req, res) => {
 		console.log(req.body);
-		console.log();
 	var login = 'admin';
 	var password = '20e0cbcd3cf233b748ebc24193b9afa7bfd8636b';
 
