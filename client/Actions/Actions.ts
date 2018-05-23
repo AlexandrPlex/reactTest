@@ -14,24 +14,24 @@ export class Actions {
     this.dispatch((dispatch: Dispatch<IDispatchProps>) => {
       fetch('http://localhost:8080/login',
       {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: 'POST',
-        mode: 'cors',
-        body: JSON.stringify({
-          login: login,
-          password: passowrd
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: 'POST',
+          mode: 'cors',
+          body: JSON.stringify({
+            login: login,
+            password: passowrd
+          })
         })
-      })
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          throw 'error';
-        }
-      })
+        .then(response => {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            throw 'error';
+          }
+        })
         .then(data => {
             dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.SUCCESS}`, payload: data});
             if(data.data.authorized == false){
@@ -47,5 +47,28 @@ export class Actions {
     });
   };
 
-  // onLogout = () => 
+  onLoadOrg = () => {
+    this.dispatch({type: `${ActionTypes.ONLOADORG}${AsyncActionTypes.BEGIN}`});
+    this.dispatch((dispatch: Dispatch<IDispatchProps>) => {
+      fetch('http://localhost:8080/Organith',
+      {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: 'GET',
+          mode: 'cors'
+        })
+        .then(response => {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            throw 'error';
+          }
+        })
+        .then(data => {
+            dispatch({type: `${ActionTypes.ONLOADORG}${AsyncActionTypes.SUCCESS}`, payload: data});
+        })
+    });
+  };
 }

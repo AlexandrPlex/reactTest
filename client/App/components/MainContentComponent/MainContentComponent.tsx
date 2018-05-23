@@ -6,19 +6,24 @@ import {IStoreState} from '../../../Store/Store';
 
 interface IStateProps {
   loginStatus: boolean;
+  loadOrg: any;
 }
 
 type TProps = IDispatchProps & IStateProps;
 
 class MainContentComponent extends React.Component<TProps, {}> {
-
+  componentWillMount(){
+    const {actions} = this.props;
+    actions.onLoadOrg();
+  }
   render () {
       if(sessionStorage.getItem('sess')!== 'true'){
         document.location.href = '/';
       }else{
         return (
           <div>
-            <h1>Main component</h1><button> {this.props.loginStatus}</button>
+            <h1>Main component</h1>
+
           </div>
         ); 
       }  
@@ -27,7 +32,8 @@ class MainContentComponent extends React.Component<TProps, {}> {
 
 function mapStateToProps(state: IStoreState): IStateProps {
   return {
-    loginStatus: state.loginStatus
+    loginStatus: state.loginStatus,
+    loadOrg: state.loadOrg,
   };
 }
 

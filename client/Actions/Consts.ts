@@ -1,7 +1,7 @@
 export enum ActionTypes {
   LOGIN = 'ACTION_LOGIN',
   LOGOUT = 'ACTION_LOGOUT',
-  ONDATA = 'ACTION_ONDATA',
+  ONLOADORG = 'ACTION_LOAD_ORG',
 }
 
 export enum AsyncActionTypes {
