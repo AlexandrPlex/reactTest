@@ -55,13 +55,15 @@ class LoginComponent extends React.Component<TProps, {loginValue: string, passwo
   render () {
     return (
       <div>
-        <p>login</p><input  onChange={this.handleChangeLoginValue} />
-        <p>password</p><input  onChange={this.handleChangePasswordValue} type='password'/>
-        <br />
-        <button onClick={this.handleLogin}> login </button>
-        <button onClick={this.handleLogout}> logout</button>
-        <br />
-        <input disabled value={`${this.props.loading} : ${this.props.loading}`} />
+        <form>
+          <p>login</p><input  onChange={this.handleChangeLoginValue} />
+          <p>password</p><input  onChange={this.handleChangePasswordValue} type='password'/>
+          <br />
+          <button onClick={this.handleLogin}> login </button>
+          <button onClick={this.handleLogout}> logout</button>
+          <br />
+          <input disabled value={`${this.props.loading} : ${this.props.loading}`} />
+        </form>
       </div>
     );
   }

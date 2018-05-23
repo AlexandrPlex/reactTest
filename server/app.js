@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
 
 import { serverPort } from '../etc/config.json';
 
@@ -14,9 +16,10 @@ db.setUpConnection();
 
 // Using bodyParser middleware
 app.use( bodyParser.json() );
-
+ 
 // Allow requests from any origin
 app.use(cors({ origin: '*' }));
+
 
 // RESTful api handlers
 
