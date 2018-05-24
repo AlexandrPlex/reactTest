@@ -11,7 +11,7 @@ export interface IActionType extends Action {
 export interface IStoreState {
   loginStatus: boolean;
   loading: boolean;
-  loadOrg: {};
+  loadOrg: Array<Object>;
 }
 
 const initialState = {
@@ -19,7 +19,7 @@ const initialState = {
     return {
       loginStatus: false,
       loading: false,
-      loadOrg: {},
+      loadOrg: [],
     }
   }
 }
@@ -66,8 +66,6 @@ export default function reducer (state: IStoreState = initialState.state, action
   return state;
 }
 
-const store = createStore(reducer, 
-  composeWithDevTools(applyMiddleware(thunk))
-);
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
 export {store as appStore};

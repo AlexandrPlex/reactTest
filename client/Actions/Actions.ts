@@ -50,30 +50,34 @@ export class Actions {
   }
 
   onLoadOrg = () => {
-    this.dispatch({type: `${ActionTypes.ONLOADORG}${AsyncActionTypes.BEGIN}`});
-    this.dispatch((dispatch: Dispatch<IDispatchProps>) => {
-      fetch('http://localhost:8080/Organith',
-      {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          method: 'POST',
-          mode: 'cors',
-          body: JSON.stringify({
-            token: sessionStorage.getItem('token')
+    return new Promise<any>((resolve, reject)=>{
+      this.dispatch({type: `${ActionTypes.ONLOADORG}${AsyncActionTypes.BEGIN}`});
+      this.dispatch((dispatch: Dispatch<IDispatchProps>) => {
+        fetch('http://localhost:8080/Organith',
+        {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify({
+              token: sessionStorage.getItem('token')
+            })
           })
-        })
-        .then(response => {
-          if (response.status === 200) {
-            return response.json();
-          } else {
-            throw 'error';
-          }
-        })
-        .then(data => {
-            dispatch({type: `${ActionTypes.ONLOADORG}${AsyncActionTypes.SUCCESS}`, payload: data});
-        })
+          .then(response => {
+            if (response.status === 200) {
+              return response.json();
+            } else {
+              reject(new Error(String(response.status)));
+              
+            }
+          })
+          .then(data => {
+              dispatch({type: `${ActionTypes.ONLOADORG}${AsyncActionTypes.SUCCESS}`, payload: data});
+              resolve(data);
+          })
+      });
     });
   };
 }

@@ -13,15 +13,19 @@ type TProps = IDispatchProps & IStateProps;
 
 class MainContentComponent extends React.Component<TProps, {}> {
   componentWillMount(){
-    const {actions} = this.props;
-    actions.onLoadOrg();
+    this.props.actions.onLoadOrg()
+    .catch(()=>{
+      document.location.href = '/';
+    });
+    console.log(this.props); // не возможно обратится к данным в момент формирования render так как на момент рендера данных еще нет и они появляются только после отрисовки.
   }
   render () {
 
         return (
           <div>
             <h1>Main component</h1>
-
+              <table>
+              </table>
           </div>
         ); 
       }  

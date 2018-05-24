@@ -28,7 +28,6 @@ class LoginComponent extends React.Component<TProps, {loginValue: string, passwo
         alert('Неправельный логин или пароль.');
       }else{
         document.location.href = '/main';
-        actions.onLoadOrg();
       }
     })
     
