@@ -23,7 +23,15 @@ class LoginComponent extends React.Component<TProps, {loginValue: string, passwo
 
   handleLogin = () => { 
     const {actions} = this.props;
-    actions.onLogin(this.state.loginValue, hash.sha1(this.state.passwordValue));
+    actions.onLogin(this.state.loginValue, hash.sha1(this.state.passwordValue)).then((resolve)=>{
+      if(resolve == false){
+        alert('Неправельный логин или пароль.');
+      }else{
+        document.location.href = '/main';
+        actions.onLoadOrg();
+      }
+    })
+    
   };
   handleChangeLoginValue = (event: any) => {
     this.setState({loginValue: event.target.value});

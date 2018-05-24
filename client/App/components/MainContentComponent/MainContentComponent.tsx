@@ -17,9 +17,7 @@ class MainContentComponent extends React.Component<TProps, {}> {
     actions.onLoadOrg();
   }
   render () {
-      if(sessionStorage.getItem('sess')!== 'true'){
-        document.location.href = '/';
-      }else{
+
         return (
           <div>
             <h1>Main component</h1>
@@ -27,7 +25,7 @@ class MainContentComponent extends React.Component<TProps, {}> {
           </div>
         ); 
       }  
-  }
+  
 };
 
 function mapStateToProps(state: IStoreState): IStateProps {
