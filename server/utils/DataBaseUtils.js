@@ -7,7 +7,6 @@ import '../models/Organith';
 import '../models/OrganithHeder'
 
 const User = mongoose.model('User');
-const Organith = mongoose.model('Organith');
 const OrganithHeder = mongoose.model('OrganithHeder');
 
 export function setUpConnection() {
@@ -16,10 +15,6 @@ export function setUpConnection() {
 
 export function listUsers(data) {
     return User.find();
-}
-
-export function listOrganith(){
-	return Organith.find();
 }
 
 export function listData(needData){

@@ -5,6 +5,7 @@ import {Actions, IDispatchProps} from '../../../Actions/Actions';
 import {IStoreState} from '../../../Store/Store';
 
 import {TableComponent} from './OrganithationComponent/TableComponent/TableComponent';
+import {HederComponent} from './HederComponent/HederComponent';
 
 interface IStateProps {
   loginStatus: boolean;
@@ -32,7 +33,7 @@ class MainContentComponent extends React.Component<TProps, {}> {
   render () {
         return (
           <div>
-            <h1>Main component, table is {sessionStorage.getItem('activeTable')}</h1>
+            <HederComponent />
             <TableComponent tableHeder={this.props.loadDataHeder} tableItems={this.props.loadData} onHandleClick={this.onHendleActiveTableItem} />
           </div>
         ); 

@@ -1,0 +1,2 @@
+{ "_id" : { "$oid" : "5afe89df7e89dd266c9b0cf2" }, "name" : "Stiv", "login" : "admin", "password" : "20e0cbcd3cf233b748ebc24193b9afa7bfd8636b" }
+{ "_id" : { "$oid" : "5afe9af77e89dd266c9b0cf3" }, "name" : "Djon", "login" : "moderator", "password" : "321" }
