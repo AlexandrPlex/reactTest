@@ -4,9 +4,11 @@ import config from '../../etc/config.json';
 
 import '../models/User';
 import '../models/Organith';
+import '../models/OrganithHeder'
 
 const User = mongoose.model('User');
 const Organith = mongoose.model('Organith');
+const OrganithHeder = mongoose.model('OrganithHeder');
 
 export function setUpConnection() {
     mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`);
@@ -18,6 +20,13 @@ export function listUsers(data) {
 
 export function listOrganith(){
 	return Organith.find();
+}
+
+export function listData(needData){
+	return mongoose.model(needData).find();
+}
+export function listHederData(needData){
+	return OrganithHeder.find({nametable : needData});
 }
 
 // export function createNote(data) {

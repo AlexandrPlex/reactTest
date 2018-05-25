@@ -47,7 +47,7 @@ export class Actions {
             });
         });
     });
-  }
+  };
 
   onLoadData = (href: string) => {
     return new Promise<any>((resolve, reject)=>{
@@ -62,7 +62,8 @@ export class Actions {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify({
-              token: sessionStorage.getItem('token')
+              token: sessionStorage.getItem('token'),
+              needData: href
             })
           })
           .then(response => {
@@ -75,9 +76,13 @@ export class Actions {
           })
           .then(data => {
               dispatch({type: `${ActionTypes.ONLOADDATA}${AsyncActionTypes.SUCCESS}`, payload: data});
-              resolve(data);
+              resolve(href);
           })
       });
     });
+  };
+
+  onActiveTableItem = (idActiveItem: string) => {
+    this.dispatch({type: `${ActionTypes.ACTIVETABLEITEM}`, payload: idActiveItem});
   };
 }

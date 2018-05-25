@@ -28,6 +28,7 @@ class LoginComponent extends React.Component<TProps, {loginValue: string, passwo
       if(resolve == false){
         alert('Неправельный логин или пароль.');
       }else{
+        sessionStorage.setItem('activeTable', 'Organith');
         document.location.href = '/main';
       }
     })

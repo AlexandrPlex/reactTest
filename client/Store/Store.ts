@@ -12,6 +12,8 @@ export interface IStoreState {
   loginStatus: boolean;
   loading: boolean;
   loadData: Array<Object>;
+  loadDataHeder: Object;
+  activeTableItem: string;
 }
 
 const initialState = {
@@ -20,12 +22,16 @@ const initialState = {
       loginStatus: false,
       loading: false,
       loadData: [],
+      loadDataHeder: {},
+      activeTableItem: '',
     }
   }
 }
 
 export default function reducer (state: IStoreState = initialState.state, action: IActionType) {
   switch (action.type) {
+
+    //------------------------LOGIN------------------------------
 
     case `${ActionTypes.LOGIN}${AsyncActionTypes.BEGIN}`:
     return {
@@ -47,7 +53,7 @@ export default function reducer (state: IStoreState = initialState.state, action
       loginStatus: false,
     };
 
-    //-----------------------------------------------------------------------
+    //------------------------LOAD-DATA------------------------------
 
     case `${ActionTypes.ONLOADDATA}${AsyncActionTypes.BEGIN}`:
     return {
@@ -58,8 +64,17 @@ export default function reducer (state: IStoreState = initialState.state, action
     case `${ActionTypes.ONLOADDATA}${AsyncActionTypes.SUCCESS}`:
     return {
       ...state,
-      loadData: action.payload,
+      loadData: action.payload.data,
+      loadDataHeder: action.payload.dataHeder[0],
       loading: false,
+    };
+
+    //------------------------ACTIVE-ON-VIEW----------------------------
+
+    case `${ActionTypes.ACTIVETABLEITEM}`:
+    return {
+      ...state,
+      activeTableItem: action.payload,
     };
 
   }

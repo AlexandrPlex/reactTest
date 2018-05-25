@@ -9,23 +9,31 @@ import {TableComponent} from './OrganithationComponent/TableComponent/TableCompo
 interface IStateProps {
   loginStatus: boolean;
   loadData: any;
+  loadDataHeder: any;
 }
 
 type TProps = IDispatchProps & IStateProps;
 
 class MainContentComponent extends React.Component<TProps, {}> {
   componentWillMount(){
-    this.props.actions.onLoadData('Organith')
+    this.props.actions.onLoadData(sessionStorage.getItem('activeTable'))
+    .then((resolve)=>{
+      sessionStorage.setItem('activeTable', resolve);
+    })
     .catch(()=>{
       document.location.href = '/';
     });
-    console.log(this.props); // не возможно обратится к данным в момент формирования render так как на момент рендера данных еще нет и они появляются только после отрисовки.
+    console.log(this.props); 
+  }
+  onHendleActiveTableItem = (itemId: any) =>{
+    this.props.actions.onActiveTableItem(itemId);
+    
   }
   render () {
         return (
           <div>
-            <h1>Main component</h1>
-            <TableComponent tableItems={this.props.loadData} />
+            <h1>Main component, table is {sessionStorage.getItem('activeTable')}</h1>
+            <TableComponent tableHeder={this.props.loadDataHeder} tableItems={this.props.loadData} onHandleClick={this.onHendleActiveTableItem} />
           </div>
         ); 
       }  
@@ -36,6 +44,7 @@ function mapStateToProps(state: IStoreState): IStateProps {
   return {
     loginStatus: state.loginStatus,
     loadData: state.loadData,
+    loadDataHeder: state.loadDataHeder,
   };
 }
 

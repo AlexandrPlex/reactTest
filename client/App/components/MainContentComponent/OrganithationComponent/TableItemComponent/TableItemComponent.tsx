@@ -1,21 +1,22 @@
 import * as React from 'react';
 
 interface IStateProps {
-	itemObject: any
+	itemObject: any,
+	onHandleClick: any
 }
 
 export class TableItemComponent extends React.Component<IStateProps, {}> {
   render() {
 
     return (
-        <div>
+        <tr onClick={this.props.onHandleClick.bind(this, this.props.itemObject['_id'])}>
         	{
         		Object.keys(this.props.itemObject).map((key: string)=>{
         			if(key.indexOf('_id'))
-        			return (<p key={key} > {this.props.itemObject[key]}</p>);
+        			return (<td key={key} > {this.props.itemObject[key]}</td>);
         		})
         	}
-        </div>
+        </tr>
     );
   }
 }

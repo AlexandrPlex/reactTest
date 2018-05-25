@@ -54,7 +54,16 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/Organith',requireToken,(req, res) =>{
-	   db.listOrganith().then(data=>res.send(data));   
+  var resolve = [];
+  db.listData(req.body.needData).then((data)=>{
+    db.listHederData(req.body.needData).then((dataHeder)=>{
+        res.send({
+            data: data,
+            dataHeder: dataHeder
+        });
+    });
+  });
+    
 });
 
 
