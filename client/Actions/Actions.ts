@@ -85,4 +85,8 @@ export class Actions {
   onActiveTableItem = (idActiveItem: string) => {
     this.dispatch({type: `${ActionTypes.ACTIVETABLEITEM}`, payload: idActiveItem});
   };
+
+  onChengeStateModalViewAddItem = (stateModal: boolean) => {
+    this.dispatch({type: `${ActionTypes.STATEMAODALVIEW}`, payload: stateModal});
+  };
 }

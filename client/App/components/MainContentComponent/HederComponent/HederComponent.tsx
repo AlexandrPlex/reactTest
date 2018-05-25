@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import {ToolBarComponent} from '../ToolBarComponent/ToolBarComponent';
 
-
 export class HederComponent extends React.Component<Object> {
   render() {
     return (

@@ -3,6 +3,7 @@ export enum ActionTypes {
   LOGOUT = 'ACTION_LOGOUT',
   ONLOADDATA = 'ACTION_LOAD_DATA',
   ACTIVETABLEITEM = 'ACTIVE_TABLE_ITEM',
+  STATEMAODALVIEW = 'STATE_MODAL_VIEW',
 }
 
 export enum AsyncActionTypes {

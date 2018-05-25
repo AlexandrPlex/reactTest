@@ -14,6 +14,7 @@ export interface IStoreState {
   loadData: Array<Object>;
   loadDataHeder: Object;
   activeTableItem: string;
+  stateModalViewAddNewItem: boolean;
 }
 
 const initialState = {
@@ -24,6 +25,7 @@ const initialState = {
       loadData: [],
       loadDataHeder: {},
       activeTableItem: '',
+      stateModalViewAddNewItem: false,
     }
   }
 }
@@ -75,6 +77,12 @@ export default function reducer (state: IStoreState = initialState.state, action
     return {
       ...state,
       activeTableItem: action.payload,
+    };
+
+    case `${ActionTypes.STATEMAODALVIEW}`:
+    return {
+      ...state,
+      stateModalViewAddNewItem: action.payload,
     };
 
   }

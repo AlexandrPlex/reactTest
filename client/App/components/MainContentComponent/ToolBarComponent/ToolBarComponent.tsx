@@ -15,12 +15,29 @@ interface IStateProps {
   loginStatus: boolean;
   loadData: any;
   loadDataHeder: any;
+  stateModalViewAddNewItem: boolean;
 }
 
 type TProps = IDispatchProps & IStateProps;
 
+Modal.setAppElement(this);
+
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : '50%',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
 
 class ToolBarComponent extends React.Component<TProps, {}> {
+
+  onHandleShowAddModalView = (stateModal: boolean) => {
+    this.props.actions.onChengeStateModalViewAddItem(stateModal);
+  }
 
   onHandleAddNewItem = () => {
 
@@ -29,9 +46,11 @@ class ToolBarComponent extends React.Component<TProps, {}> {
   render () {
         return (
           <div>
-             <button> Добавить </button>
-             <Modal isOpen={false}>
-               <AddNewItemViewComponent />
+             <button onClick={this.onHandleShowAddModalView.bind(this, true)}> Добавить </button>
+             <Modal isOpen={this.props.stateModalViewAddNewItem} style={customStyles}>
+               <AddNewItemViewComponent headerNewItem={this.props.loadDataHeder} 
+                                        onHandleShowAddModalView={this.onHandleShowAddModalView}
+                                        onHandleAddNewItem={this.onHandleAddNewItem} />
              </Modal>
           </div>
         ); 
@@ -44,6 +63,7 @@ function mapStateToProps(state: IStoreState): IStateProps {
     loginStatus: state.loginStatus,
     loadData: state.loadData,
     loadDataHeder: state.loadDataHeder,
+    stateModalViewAddNewItem: state.stateModalViewAddNewItem,
   };
 }
 
