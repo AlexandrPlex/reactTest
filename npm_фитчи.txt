@@ -1,1 +1,2 @@
 https://www.npmjs.com/package/react-burger-menu - меню
+https://react.parts/react-modal?search=modal&collection=React - модальное окно
