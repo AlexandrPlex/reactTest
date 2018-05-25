@@ -12,8 +12,8 @@ export class AddNewItemViewComponent extends React.Component<IStateProps, {}> {
   constructor(){
       super();
   }
-  onChengeInput = (e: any) => {
-      console.log(e.target.value);
+  onChengeInput = (event: any) => {
+      console.log(event.target.value);
   }
   
   render() {
