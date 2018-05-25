@@ -23,7 +23,8 @@ class LoginComponent extends React.Component<TProps, {loginValue: string, passwo
 
   handleLogin = () => { 
     const {actions} = this.props;
-    actions.onLogin(this.state.loginValue, hash.sha1(this.state.passwordValue)).then((resolve)=>{
+    actions.onLogin(this.state.loginValue, hash.sha1(this.state.passwordValue))
+    .then((resolve)=>{
       if(resolve == false){
         alert('Неправельный логин или пароль.');
       }else{
@@ -43,7 +44,7 @@ class LoginComponent extends React.Component<TProps, {loginValue: string, passwo
     return (
       <div>
     
-          <p>login</p><input  onChange={this.handleChangeLoginValue} />
+          <p>login</p><input onChange={this.handleChangeLoginValue} />
           <p>password</p><input  onChange={this.handleChangePasswordValue} type='password'/>
           <br />
           <button onClick={this.handleLogin}> login </button>

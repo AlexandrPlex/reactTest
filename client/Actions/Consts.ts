@@ -9,3 +9,9 @@ export enum AsyncActionTypes {
   SUCCESS = '_SUCCESS',
   FAILURE = '_FAILURE',
 }
+
+export enum LoadData{
+	ORGANITATION = '/',
+	FILIALS = '',
+	STAFF = ''
+}

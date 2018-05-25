@@ -4,6 +4,8 @@ import {Dispatch} from 'redux';
 import {Actions, IDispatchProps} from '../../../Actions/Actions';
 import {IStoreState} from '../../../Store/Store';
 
+import {TableComponent} from './OrganithationComponent/TableComponent/TableComponent';
+
 interface IStateProps {
   loginStatus: boolean;
   loadOrg: any;
@@ -20,12 +22,10 @@ class MainContentComponent extends React.Component<TProps, {}> {
     console.log(this.props); // не возможно обратится к данным в момент формирования render так как на момент рендера данных еще нет и они появляются только после отрисовки.
   }
   render () {
-
         return (
           <div>
             <h1>Main component</h1>
-              <table>
-              </table>
+            <TableComponent tableItems={this.props.loadOrg} />
           </div>
         ); 
       }  
