@@ -8,14 +8,14 @@ import {TableComponent} from './OrganithationComponent/TableComponent/TableCompo
 
 interface IStateProps {
   loginStatus: boolean;
-  loadOrg: any;
+  loadData: any;
 }
 
 type TProps = IDispatchProps & IStateProps;
 
 class MainContentComponent extends React.Component<TProps, {}> {
   componentWillMount(){
-    this.props.actions.onLoadOrg()
+    this.props.actions.onLoadData('Organith')
     .catch(()=>{
       document.location.href = '/';
     });
@@ -25,7 +25,7 @@ class MainContentComponent extends React.Component<TProps, {}> {
         return (
           <div>
             <h1>Main component</h1>
-            <TableComponent tableItems={this.props.loadOrg} />
+            <TableComponent tableItems={this.props.loadData} />
           </div>
         ); 
       }  
@@ -35,7 +35,7 @@ class MainContentComponent extends React.Component<TProps, {}> {
 function mapStateToProps(state: IStoreState): IStateProps {
   return {
     loginStatus: state.loginStatus,
-    loadOrg: state.loadOrg,
+    loadData: state.loadData,
   };
 }
 

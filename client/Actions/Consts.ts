@@ -1,7 +1,7 @@
 export enum ActionTypes {
   LOGIN = 'ACTION_LOGIN',
   LOGOUT = 'ACTION_LOGOUT',
-  ONLOADORG = 'ACTION_LOAD_ORG',
+  ONLOADDATA = 'ACTION_LOAD_DATA',
 }
 
 export enum AsyncActionTypes {
@@ -10,8 +10,4 @@ export enum AsyncActionTypes {
   FAILURE = '_FAILURE',
 }
 
-export enum LoadData{
-	ORGANITATION = '/',
-	FILIALS = '',
-	STAFF = ''
-}
+

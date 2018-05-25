@@ -49,11 +49,11 @@ export class Actions {
     });
   }
 
-  onLoadOrg = () => {
+  onLoadData = (href: string) => {
     return new Promise<any>((resolve, reject)=>{
-      this.dispatch({type: `${ActionTypes.ONLOADORG}${AsyncActionTypes.BEGIN}`});
+      this.dispatch({type: `${ActionTypes.ONLOADDATA}${AsyncActionTypes.BEGIN}`});
       this.dispatch((dispatch: Dispatch<IDispatchProps>) => {
-        fetch('http://localhost:8080/Organith',
+        fetch(`http://localhost:8080/${href}`,
         {
             headers: {
               'Accept': 'application/json',
@@ -74,7 +74,7 @@ export class Actions {
             }
           })
           .then(data => {
-              dispatch({type: `${ActionTypes.ONLOADORG}${AsyncActionTypes.SUCCESS}`, payload: data});
+              dispatch({type: `${ActionTypes.ONLOADDATA}${AsyncActionTypes.SUCCESS}`, payload: data});
               resolve(data);
           })
       });

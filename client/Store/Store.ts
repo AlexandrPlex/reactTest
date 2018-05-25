@@ -11,7 +11,7 @@ export interface IActionType extends Action {
 export interface IStoreState {
   loginStatus: boolean;
   loading: boolean;
-  loadOrg: Array<Object>;
+  loadData: Array<Object>;
 }
 
 const initialState = {
@@ -19,7 +19,7 @@ const initialState = {
     return {
       loginStatus: false,
       loading: false,
-      loadOrg: [],
+      loadData: [],
     }
   }
 }
@@ -49,16 +49,16 @@ export default function reducer (state: IStoreState = initialState.state, action
 
     //-----------------------------------------------------------------------
 
-    case `${ActionTypes.ONLOADORG}${AsyncActionTypes.BEGIN}`:
+    case `${ActionTypes.ONLOADDATA}${AsyncActionTypes.BEGIN}`:
     return {
       ...state,
       loading: true,
     };
 
-    case `${ActionTypes.ONLOADORG}${AsyncActionTypes.SUCCESS}`:
+    case `${ActionTypes.ONLOADDATA}${AsyncActionTypes.SUCCESS}`:
     return {
       ...state,
-      loadOrg: action.payload,
+      loadData: action.payload,
       loading: false,
     };
 
