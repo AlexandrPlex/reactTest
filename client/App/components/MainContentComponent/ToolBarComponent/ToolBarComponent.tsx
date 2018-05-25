@@ -20,7 +20,7 @@ interface IStateProps {
 
 type TProps = IDispatchProps & IStateProps;
 
-Modal.setAppElement(this);
+Modal.setAppElement('#app');
 
 const customStyles = {
   content : {
@@ -45,7 +45,7 @@ class ToolBarComponent extends React.Component<TProps, {}> {
 
   render () {
         return (
-          <div>
+          <div id='main'>
              <button onClick={this.onHandleShowAddModalView.bind(this, true)}> Добавить </button>
              <Modal isOpen={this.props.stateModalViewAddNewItem} style={customStyles}>
                <AddNewItemViewComponent headerNewItem={this.props.loadDataHeder} 

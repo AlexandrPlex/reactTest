@@ -32,7 +32,7 @@ class MainContentComponent extends React.Component<TProps, {}> {
   }
   render () {
         return (
-          <div>
+          <div >
             <HederComponent />
             <TableComponent tableHeder={this.props.loadDataHeder} tableItems={this.props.loadData} onHandleClick={this.onHendleActiveTableItem} />
           </div>
