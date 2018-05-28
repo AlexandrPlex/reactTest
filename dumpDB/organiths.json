@@ -4,3 +4,4 @@
 { "_id" : { "$oid" : "5b0be480ba3f4525dccd1578" }, "__v" : 0 }
 { "_id" : { "$oid" : "5b0be48cbecdd210d8ba1aba" }, "__v" : 0 }
 { "_id" : { "$oid" : "5b0bf98f0bcf1f062c0fa6b4" }, "name" : "вфыв", "adress" : "фвыа", "phone" : "фываыа", "__v" : 0 }
+{ "_id" : { "$oid" : "5b0c1b5c51199726a4f85c77" }, "name" : "dsfg", "adress" : "dsfg", "phone" : "dsfg", "__v" : 0 }
