@@ -39,8 +39,8 @@ class ToolBarComponent extends React.Component<TProps, {}> {
     this.props.actions.onChengeStateModalViewAddItem(stateModal);
   }
 
-  onHandleAddNewItem = () => {
-
+  onHandleAddNewItem = (addValue: Object) => {
+      this.props.actions.onAddNewItem(sessionStorage.getItem('activeTable'), addValue);
   }
 
   render () {

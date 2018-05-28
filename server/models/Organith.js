@@ -6,6 +6,7 @@ const OrganithSchema = new Schema({
     name      : { type: String },
     adress    : { type: String },
     phone     : { type: String },
+    __v       : { type: Number, select: false}
 });
 
 mongoose.model('Organith', OrganithSchema);

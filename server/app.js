@@ -53,8 +53,7 @@ app.post('/login', (req, res) => {
     });
 });
 
-app.post('/Organith',requireToken,(req, res) =>{
-  var resolve = [];
+app.post('/getData',requireToken,(req, res) =>{
   db.listData(req.body.needData).then((data)=>{
     db.listHederData(req.body.needData).then((dataHeder)=>{
         res.send({
@@ -64,6 +63,16 @@ app.post('/Organith',requireToken,(req, res) =>{
     });
   });
     
+});
+
+app.post('/setData',requireToken,(req, res) =>{
+    db.listHederData(req.body.needData).then((data)=>{
+        db.setData(req.body.needData, data, req.body.data).then((data)=>{
+            console.log(data)
+            res.send(data[0]);
+        });
+    });
+
 });
 
 

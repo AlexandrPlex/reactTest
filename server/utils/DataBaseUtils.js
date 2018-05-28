@@ -24,6 +24,16 @@ export function listHederData(needData){
 	return OrganithHeder.find({nametable : needData});
 }
 
+export function setData(needData, header, data){
+		const addData = mongoose.model(needData);
+	    const datasave = new addData();
+	    Object.keys(header).map((key)=>{
+	    	console.log(header);
+	    	datasave[key] = data[key];
+	    });
+
+	    return datasave.save();
+}
 // export function createNote(data) {
 //     const note = new Note({
 //         title: data.title,

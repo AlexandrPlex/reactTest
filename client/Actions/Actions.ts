@@ -49,11 +49,11 @@ export class Actions {
     });
   };
 
-  onLoadData = (href: string) => {
+  onLoadData = (nameCollection: string) => {
     return new Promise<any>((resolve, reject)=>{
       this.dispatch({type: `${ActionTypes.ONLOADDATA}${AsyncActionTypes.BEGIN}`});
       this.dispatch((dispatch: Dispatch<IDispatchProps>) => {
-        fetch(`http://localhost:8080/${href}`,
+        fetch(`http://localhost:8080/getData`,
         {
             headers: {
               'Accept': 'application/json',
@@ -63,7 +63,7 @@ export class Actions {
             mode: 'cors',
             body: JSON.stringify({
               token: sessionStorage.getItem('token'),
-              needData: href
+              needData: nameCollection
             })
           })
           .then(response => {
@@ -76,7 +76,7 @@ export class Actions {
           })
           .then(data => {
               dispatch({type: `${ActionTypes.ONLOADDATA}${AsyncActionTypes.SUCCESS}`, payload: data});
-              resolve(href);
+              resolve(nameCollection);
           })
       });
     });
@@ -89,4 +89,38 @@ export class Actions {
   onChengeStateModalViewAddItem = (stateModal: boolean) => {
     this.dispatch({type: `${ActionTypes.STATEMAODALVIEW}`, payload: stateModal});
   };
+
+  onAddNewItem = (nameCollection: string, data: Object) => {
+    return new Promise<any>((resolve, reject)=>{
+      this.dispatch({type: `${ActionTypes.ONLOADDATA}${AsyncActionTypes.BEGIN}`});
+      this.dispatch((dispatch: Dispatch<IDispatchProps>) => {
+        fetch(`http://localhost:8080/setData`,
+        {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify({
+              token: sessionStorage.getItem('token'),
+              needData: nameCollection,
+              data: data
+            })
+          })
+          .then(response => {
+            if (response.status === 200) {
+              return response.json();
+            } else {
+              reject(new Error(String(response.status)));
+              
+            }
+          })
+          .then(data => {
+              dispatch({type: `${ActionTypes.ONLOADDATA}${AsyncActionTypes.SUCCESS}`, payload: data});
+              resolve(nameCollection);
+          })
+      });
+    });
+  }
 }
