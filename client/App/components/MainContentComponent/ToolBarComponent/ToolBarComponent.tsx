@@ -5,6 +5,7 @@ import {Actions, IDispatchProps} from '../../../../Actions/Actions';
 import {IStoreState} from '../../../../Store/Store';
 
 import './ToolBarComponentStyle.less';
+import * as chengeCollection from '../ChengeCollectoinComponent/ChengeCollectionComponent';
 
 import * as Modal from 'react-modal';
 
@@ -16,6 +17,7 @@ interface IStateProps {
   loadData: any;
   loadDataHeder: any;
   stateModalViewAddNewItem: boolean;
+  activeTableItem: string;
 }
 
 type TProps = IDispatchProps & IStateProps;
@@ -40,13 +42,31 @@ class ToolBarComponent extends React.Component<TProps, {}> {
   }
 
   onHandleAddNewItem = (addValue: Object) => {
-      this.props.actions.onAddNewItem(sessionStorage.getItem('activeTable'), addValue);
+      this.props.actions.onAddNewItem(sessionStorage.getItem('activeTable'), addValue)
+        .then((resolve)=>{
+            console.log(resolve);
+            this.props.actions.onLoadData(resolve);
+            this.onHandleShowAddModalView(false);
+        });
+  }
+
+  onHandleDeleteItem = () => {
+      this.props.actions.onDeleteItem(this.props.activeTableItem, sessionStorage.getItem('activeTable'))
+        .then((resolve)=>{
+          this.props.actions.onLoadData(resolve);
+        });
+  }
+  onBackCollection = () => {
+    sessionStorage.setItem('activeTable', chengeCollection.downCollection(sessionStorage.getItem('activeTable')));
+    document.location.href = '/main';
   }
 
   render () {
         return (
           <div id='main'>
              <button onClick={this.onHandleShowAddModalView.bind(this, true)}> Добавить </button>
+             <button onClick={this.onHandleDeleteItem.bind(this)}> Удaлить </button>
+             <button onClick={this.onBackCollection.bind(this)}> Назад </button>
              <Modal isOpen={this.props.stateModalViewAddNewItem} style={customStyles}>
                <AddNewItemViewComponent headerNewItem={this.props.loadDataHeder} 
                                         onHandleShowAddModalView={this.onHandleShowAddModalView}
@@ -64,6 +84,7 @@ function mapStateToProps(state: IStoreState): IStateProps {
     loadData: state.loadData,
     loadDataHeder: state.loadDataHeder,
     stateModalViewAddNewItem: state.stateModalViewAddNewItem,
+    activeTableItem: state.activeTableItem,
   };
 }
 

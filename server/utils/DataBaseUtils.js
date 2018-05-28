@@ -4,7 +4,9 @@ import config from '../../etc/config.json';
 
 import '../models/User';
 import '../models/Organith';
-import '../models/OrganithHeder'
+import '../models/OrganithHeder';
+import '../models/Filial';
+import '../models/Staff';
 
 const User = mongoose.model('User');
 const OrganithHeder = mongoose.model('OrganithHeder');
@@ -24,16 +26,20 @@ export function listHederData(needData){
 	return OrganithHeder.find({nametable : needData});
 }
 
-export function setData(needData, header, data){
+export function setData(needData, data){
 		const addData = mongoose.model(needData);
 	    const datasave = new addData();
-	    Object.keys(header).map((key)=>{
-	    	console.log(header);
+	    Object.keys(data).map((key)=>{
 	    	datasave[key] = data[key];
-	    });
+	    })
 
 	    return datasave.save();
 }
+
+export function deleteItem(id, needData) {
+    return mongoose.model(needData).findById(id).remove();
+}
+
 // export function createNote(data) {
 //     const note = new Note({
 //         title: data.title,

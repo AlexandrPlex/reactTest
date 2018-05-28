@@ -66,13 +66,16 @@ app.post('/getData',requireToken,(req, res) =>{
 });
 
 app.post('/setData',requireToken,(req, res) =>{
-    db.listHederData(req.body.needData).then((data)=>{
-        db.setData(req.body.needData, data, req.body.data).then((data)=>{
-            console.log(data)
-            res.send(data[0]);
-        });
+    
+    db.setData(req.body.needData, req.body.data).then((data)=>{
+        res.send(data);
     });
+});
 
+app.delete('/delete',requireToken,(req, res) =>{
+    db.deleteItem(req.body.id, req.body.needData).then((data)=>{
+        res.send(data);
+    });
 });
 
 

@@ -1,2 +1,4 @@
-{ "_id" : { "$oid" : "5b07e35089832a0f9c83d878" }, "_idPerentFilials" : "5b07d14f89832a0f9c83d877", "fullNmae" : "Иван Иванов", "adress" : "ул. Строителей, д.5", "phone" : "8956423", "salary" : "30000" }
-{ "_id" : { "$oid" : "5b07e450154d9e0f9cea6433" }, "_idPerentFilials" : "5b07d14f89832a0f9c83d877", "fullNmae" : "Петр Петров", "adress" : "ул. Строителей, д.7", "phone" : "8956423", "salary" : "30000" }
+{ "_id" : { "$oid" : "5b07e35089832a0f9c83d878" }, "_idPerentFilials" : "5b07d14f89832a0f9c83d877", "fullName" : "Иван Иванов", "adress" : "ул. Строителей, д.5", "phone" : "8956423", "salary" : "30000" }
+{ "_id" : { "$oid" : "5b07e450154d9e0f9cea6433" }, "_idPerentFilials" : "5b07d14f89832a0f9c83d877", "fullName" : "Петр Петров", "adress" : "ул. Строителей, д.7", "phone" : "8956423", "salary" : "30000" }
+{ "_id" : { "$oid" : "5b0bf4d30bcf1f062c0fa6b0" }, "fullName" : "Кузьма Кузьмич", "adress" : "Тисовая улица 45", "phone" : "8905981234", "salary" : 26000, "__v" : 0 }
+{ "_id" : { "$oid" : "5b0bfa060bcf1f062c0fa6b5" }, "fullName" : "Александр Александров", "adress" : "Дорожная 67", "phone" : "55440033", "salary" : 45000, "__v" : 0 }

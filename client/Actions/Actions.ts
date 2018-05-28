@@ -49,7 +49,7 @@ export class Actions {
     });
   };
 
-  onLoadData = (nameCollection: string) => {
+  onLoadData = (nameCollection: string, perent?: any) => {
     return new Promise<any>((resolve, reject)=>{
       this.dispatch({type: `${ActionTypes.ONLOADDATA}${AsyncActionTypes.BEGIN}`});
       this.dispatch((dispatch: Dispatch<IDispatchProps>) => {
@@ -63,7 +63,8 @@ export class Actions {
             mode: 'cors',
             body: JSON.stringify({
               token: sessionStorage.getItem('token'),
-              needData: nameCollection
+              needData: nameCollection,
+              perent: perent,
             })
           })
           .then(response => {
@@ -92,7 +93,7 @@ export class Actions {
 
   onAddNewItem = (nameCollection: string, data: Object) => {
     return new Promise<any>((resolve, reject)=>{
-      this.dispatch({type: `${ActionTypes.ONLOADDATA}${AsyncActionTypes.BEGIN}`});
+      this.dispatch({type: `${ActionTypes.ADDNEWITEM}${AsyncActionTypes.BEGIN}`});
       this.dispatch((dispatch: Dispatch<IDispatchProps>) => {
         fetch(`http://localhost:8080/setData`,
         {
@@ -117,10 +118,40 @@ export class Actions {
             }
           })
           .then(data => {
-              dispatch({type: `${ActionTypes.ONLOADDATA}${AsyncActionTypes.SUCCESS}`, payload: data});
+              dispatch({type: `${ActionTypes.ADDNEWITEM}${AsyncActionTypes.SUCCESS}`, payload: data});
               resolve(nameCollection);
           })
       });
+    });
+  }
+
+  onDeleteItem = (id: any, nameCollection: string) => {
+    return new Promise<any>((resolve, reject)=>{
+        fetch(`http://localhost:8080/delete`,
+        {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            method: 'DELETE',
+            mode: 'cors',
+            body: JSON.stringify({
+              token: sessionStorage.getItem('token'),
+              needData: nameCollection,
+              id: id
+            })
+          })
+          .then(response => {
+            if (response.status === 200) {
+              return response.json();
+            } else {
+              reject(new Error(String(response.status)));
+            }
+          })
+          .then(() => {
+              resolve(nameCollection);
+          })
+      
     });
   }
 }

@@ -6,18 +6,20 @@ import {IStoreState} from '../../../Store/Store';
 
 import {TableComponent} from './OrganithationComponent/TableComponent/TableComponent';
 import {HederComponent} from './HederComponent/HederComponent';
+import * as chengeCollection from './ChengeCollectoinComponent/ChengeCollectionComponent';
 
 interface IStateProps {
   loginStatus: boolean;
   loadData: any;
   loadDataHeder: any;
+  activeTableItem: any;
 }
 
 type TProps = IDispatchProps & IStateProps;
 
 class MainContentComponent extends React.Component<TProps, {}> {
   componentWillMount(){
-    this.props.actions.onLoadData(sessionStorage.getItem('activeTable'))
+    this.props.actions.onLoadData(sessionStorage.getItem('activeTable'), this.props.activeTableItem)
     .then((resolve)=>{
       sessionStorage.setItem('activeTable', resolve);
     })
@@ -27,6 +29,8 @@ class MainContentComponent extends React.Component<TProps, {}> {
     console.log(this.props); 
   }
   onHendleActiveTableItem = (itemId: any) =>{
+    sessionStorage.setItem('activeTable', chengeCollection.appCollection(sessionStorage.getItem('activeTable')));
+    document.location.href = '/main';
     this.props.actions.onActiveTableItem(itemId);
     
   }
@@ -46,6 +50,7 @@ function mapStateToProps(state: IStoreState): IStateProps {
     loginStatus: state.loginStatus,
     loadData: state.loadData,
     loadDataHeder: state.loadDataHeder,
+    activeTableItem: state.activeTableItem,
   };
 }
 

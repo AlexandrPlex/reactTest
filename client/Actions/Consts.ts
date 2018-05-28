@@ -4,6 +4,7 @@ export enum ActionTypes {
   ONLOADDATA = 'ACTION_LOAD_DATA',
   ACTIVETABLEITEM = 'ACTIVE_TABLE_ITEM',
   STATEMAODALVIEW = 'STATE_MODAL_VIEW',
+  ADDNEWITEM = 'ADD_NEW_ITEM',
 }
 
 export enum AsyncActionTypes {
