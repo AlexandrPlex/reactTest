@@ -19,19 +19,26 @@ export function listUsers(data) {
     return User.find();
 }
 
-export function listData(needData){
-	return mongoose.model(needData).find();
+export function listData(needData, perent){
+	if(perent){
+		return mongoose.model(needData).find({_idPerent: perent});	
+	}else{
+		return mongoose.model(needData).find();
+	}
 }
 export function listHederData(needData){
 	return OrganithHeder.find({nametable : needData});
 }
 
-export function setData(needData, data){
+export function setData(needData, data, perent){
 		const addData = mongoose.model(needData);
 	    const datasave = new addData();
 	    Object.keys(data).map((key)=>{
 	    	datasave[key] = data[key];
-	    })
+	    });
+	    if(needData!='Organith'){
+	    	datasave._idPerent = perent;
+	    }
 
 	    return datasave.save();
 }

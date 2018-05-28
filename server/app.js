@@ -54,7 +54,7 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/getData',requireToken,(req, res) =>{
-  db.listData(req.body.needData).then((data)=>{
+  db.listData(req.body.needData, req.body.perent).then((data)=>{
     db.listHederData(req.body.needData).then((dataHeder)=>{
         res.send({
             data: data,
@@ -67,13 +67,15 @@ app.post('/getData',requireToken,(req, res) =>{
 
 app.post('/setData',requireToken,(req, res) =>{
     
-    db.setData(req.body.needData, req.body.data).then((data)=>{
+    db.setData(req.body.needData, req.body.data, req.body.perent).then((data)=>{
+        console.log(data);
         res.send(data);
     });
 });
 
 app.delete('/delete',requireToken,(req, res) =>{
     db.deleteItem(req.body.id, req.body.needData).then((data)=>{
+
         res.send(data);
     });
 });

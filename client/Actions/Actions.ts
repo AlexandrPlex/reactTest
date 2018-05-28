@@ -49,7 +49,7 @@ export class Actions {
     });
   };
 
-  onLoadData = (nameCollection: string, perent?: any) => {
+  onLoadData = (nameCollection: string, perent?: string) => {
     return new Promise<any>((resolve, reject)=>{
       this.dispatch({type: `${ActionTypes.ONLOADDATA}${AsyncActionTypes.BEGIN}`});
       this.dispatch((dispatch: Dispatch<IDispatchProps>) => {
@@ -64,7 +64,7 @@ export class Actions {
             body: JSON.stringify({
               token: sessionStorage.getItem('token'),
               needData: nameCollection,
-              perent: perent,
+              perent: perent ? perent : false,
             })
           })
           .then(response => {
@@ -91,7 +91,7 @@ export class Actions {
     this.dispatch({type: `${ActionTypes.STATEMAODALVIEW}`, payload: stateModal});
   };
 
-  onAddNewItem = (nameCollection: string, data: Object) => {
+  onAddNewItem = (nameCollection: string, data: Object, perent?: any) => {
     return new Promise<any>((resolve, reject)=>{
       this.dispatch({type: `${ActionTypes.ADDNEWITEM}${AsyncActionTypes.BEGIN}`});
       this.dispatch((dispatch: Dispatch<IDispatchProps>) => {
@@ -106,7 +106,8 @@ export class Actions {
             body: JSON.stringify({
               token: sessionStorage.getItem('token'),
               needData: nameCollection,
-              data: data
+              data: data,
+              perent: perent,
             })
           })
           .then(response => {

@@ -42,10 +42,11 @@ class ToolBarComponent extends React.Component<TProps, {}> {
   }
 
   onHandleAddNewItem = (addValue: Object) => {
-      this.props.actions.onAddNewItem(sessionStorage.getItem('activeTable'), addValue)
+    console.log(addValue)
+      this.props.actions.onAddNewItem(sessionStorage.getItem('activeTable'), addValue, sessionStorage.getItem('activeItem'))
         .then((resolve)=>{
             console.log(resolve);
-            this.props.actions.onLoadData(resolve);
+            this.props.actions.onLoadData(resolve, sessionStorage.getItem('activeItem'));
             this.onHandleShowAddModalView(false);
         });
   }
@@ -53,11 +54,17 @@ class ToolBarComponent extends React.Component<TProps, {}> {
   onHandleDeleteItem = () => {
       this.props.actions.onDeleteItem(this.props.activeTableItem, sessionStorage.getItem('activeTable'))
         .then((resolve)=>{
-          this.props.actions.onLoadData(resolve);
+          this.props.actions.onLoadData(resolve, sessionStorage.getItem('activeItem'));
         });
   }
   onBackCollection = () => {
     sessionStorage.setItem('activeTable', chengeCollection.downCollection(sessionStorage.getItem('activeTable')));
+    if(sessionStorage.getItem('activeTable')==='Organith'){
+      sessionStorage.setItem('activeItem', '');
+    }else{
+      sessionStorage.setItem('activeItem', sessionStorage.getItem('perentItem'));
+      sessionStorage.setItem('perentItem', '');
+    }
     document.location.href = '/main';
   }
 

@@ -7,6 +7,7 @@ import {IStoreState} from '../../../Store/Store';
 import {TableComponent} from './OrganithationComponent/TableComponent/TableComponent';
 import {HederComponent} from './HederComponent/HederComponent';
 import * as chengeCollection from './ChengeCollectoinComponent/ChengeCollectionComponent';
+import {GridComponent} from './GridComponent/GridComponent';
 
 interface IStateProps {
   loginStatus: boolean;
@@ -19,8 +20,8 @@ type TProps = IDispatchProps & IStateProps;
 
 class MainContentComponent extends React.Component<TProps, {}> {
   componentWillMount(){
-    this.props.actions.onLoadData(sessionStorage.getItem('activeTable'), this.props.activeTableItem)
-    .then((resolve)=>{
+    this.props.actions.onLoadData(sessionStorage.getItem('activeTable'), sessionStorage.getItem('activeItem') )
+    .then((resolve: any)=>{
       sessionStorage.setItem('activeTable', resolve);
     })
     .catch(()=>{
@@ -30,8 +31,9 @@ class MainContentComponent extends React.Component<TProps, {}> {
   }
   onHendleActiveTableItem = (itemId: any) =>{
     sessionStorage.setItem('activeTable', chengeCollection.appCollection(sessionStorage.getItem('activeTable')));
+    sessionStorage.setItem('perentItem', sessionStorage.getItem('activeItem') ? sessionStorage.getItem('activeItem'): null);
+    sessionStorage.setItem('activeItem', itemId);
     document.location.href = '/main';
-    this.props.actions.onActiveTableItem(itemId);
     
   }
   render () {
@@ -39,6 +41,7 @@ class MainContentComponent extends React.Component<TProps, {}> {
           <div >
             <HederComponent />
             <TableComponent tableHeder={this.props.loadDataHeder} tableItems={this.props.loadData} onHandleClick={this.onHendleActiveTableItem} />
+            <GridComponent />
           </div>
         ); 
       }  
