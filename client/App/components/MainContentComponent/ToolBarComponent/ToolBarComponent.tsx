@@ -68,7 +68,7 @@ class ToolBarComponent extends React.Component<TProps, {}> {
     document.location.href = '/main';
   }
 
-  render () {
+    render(): JSX.Element | false | null {
         return (
           <div id='main'>
              <button onClick={this.onHandleShowAddModalView.bind(this, true)}> Добавить </button>

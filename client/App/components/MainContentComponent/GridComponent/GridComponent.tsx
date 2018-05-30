@@ -11,8 +11,8 @@ export class GridComponent extends React.Component<IStateProps, {}> {
 
   }
 
-  
-  render() {
+
+    render(): JSX.Element | false | null {
     return (
        <form>
           <input value='asfafd' />

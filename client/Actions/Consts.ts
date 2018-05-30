@@ -1,6 +1,6 @@
 export enum ActionTypes {
   LOGIN = 'ACTION_LOGIN',
-  LOGOUT = 'ACTION_LOGOUT',
+  // LOGOUT = 'ACTION_LOGOUT',
   ONLOADDATA = 'ACTION_LOAD_DATA',
   ACTIVETABLEITEM = 'ACTIVE_TABLE_ITEM',
   STATEMAODALVIEW = 'STATE_MODAL_VIEW',
@@ -8,9 +8,7 @@ export enum ActionTypes {
 }
 
 export enum AsyncActionTypes {
-  BEGIN = '_BEGIN',
-  SUCCESS = '_SUCCESS',
-  FAILURE = '_FAILURE',
+    BEGIN = '_BEGIN',
+    SUCCESS = '_SUCCESS',
+    FAILURE = '_FAILURE'
 }
-
-

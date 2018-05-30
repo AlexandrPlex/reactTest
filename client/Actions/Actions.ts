@@ -34,7 +34,7 @@ export class Actions {
             })
             .then(data => {
                 dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.SUCCESS}`, payload: data});
-                if(data.data.authorized == false){
+                if(data.data.authorized === false){
                   resolve(false);
                 }else{
                   sessionStorage.setItem('token', data.data.token);
@@ -71,8 +71,7 @@ export class Actions {
             if (response.status === 200) {
               return response.json();
             } else {
-              reject(new Error(String(response.status)));
-              
+              reject(new Error(String(response.status)))
             }
           })
           .then(data => {
@@ -115,7 +114,6 @@ export class Actions {
               return response.json();
             } else {
               reject(new Error(String(response.status)));
-              
             }
           })
           .then(data => {
@@ -124,7 +122,7 @@ export class Actions {
           })
       });
     });
-  }
+  };
 
   onDeleteItem = (id: any, nameCollection: string) => {
     return new Promise<any>((resolve, reject)=>{
@@ -151,8 +149,7 @@ export class Actions {
           })
           .then(() => {
               resolve(nameCollection);
-          })
-      
+          });
     });
   }
 }

@@ -8,7 +8,7 @@ interface IStateProps {
 }
 
 export class TableComponent extends React.Component<IStateProps, {}> {
-  render() {
+    render(): JSX.Element | false | null {
     let onHandleClick = this.props.onHandleClick;
     return (
         <table className='table table-hover table-inverse'>
@@ -22,11 +22,11 @@ export class TableComponent extends React.Component<IStateProps, {}> {
             <tbody className='thead-default'>
             {
                 this.props.tableItems.map(function(el: any){
-                    return (<TableItemComponent 
-                            key = {el['_id']}
-                            itemObject = {el}
-                            onHandleClick = {onHandleClick}
-                      />)
+                    return <TableItemComponent
+                        key={el['_id']}
+                        itemObject={el}
+                        onHandleClick={onHandleClick}
+                    />
                 })
             }
             </tbody>
