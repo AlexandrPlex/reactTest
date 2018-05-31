@@ -5,39 +5,25 @@ import {Actions, IDispatchProps} from '../../../Actions/Actions';
 import {IStoreState} from '../../../Store/Store';
 
 interface IStateProps {
-  loginStatus: boolean;
-  loadData: any;
-  loadDataHeder: any;
-  activeTableItem: any;
+
+}
+interface IState{
+	collectionName: string;
 }
 
-type TProps = IDispatchProps & IStateProps;
+type TProps = IDispatchProps & IStateProps & IState;
 
 class MainContentComponent extends React.PureComponent<TProps, {}> {
-  componentWillMount(){
-    this.props.actions.onLoadData(sessionStorage.getItem('activeTable'))
-    .then((resolve: any)=>{
-      sessionStorage.setItem('activeTable', resolve);
-    })
-    .catch(()=>{
-      document.location.href = '/';
-    });
-    console.log(this.props);
-  }
-
     render() {
       return <div>
-
+      <h1> {this.props.collectionName} </h1>
       </div>;
   }
 }
 
 function mapStateToProps(state: IStoreState): IStateProps {
   return {
-    loginStatus: state.loginStatus,
-    loadData: state.loadData,
-    loadDataHeder: state.loadDataHeder,
-    activeTableItem: state.activeTableItem,
+
   };
 }
 

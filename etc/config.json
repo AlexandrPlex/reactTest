@@ -1,5 +1,4 @@
 {
-    "apiPrefix": "http://localhost:8080",
     "secret": "apm3QvabC%ss50VZm0dTf9LaY~5EZT",
     "serverPort": "8080",
     "db":{

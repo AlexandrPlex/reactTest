@@ -2,9 +2,9 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "sourceMap": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false, // ошибка в случаа если найдены неиспользуемые параметры
     "module": "commonjs",
     "target": "es6",
     "jsx": "react",

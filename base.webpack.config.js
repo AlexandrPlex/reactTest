@@ -14,6 +14,9 @@ module.exports = {
     },
     module: {
         rules: [{
+            test: /\.json?$/,
+            use: "json-loader"
+        }, {
             test: /\.tsx?$/,
             enforce: "pre",
             use: "tslint-loader"
@@ -35,7 +38,7 @@ module.exports = {
       }]
     },
     resolve: {
-        extensions: [".tsx", ".ts", ".js"]
+        extensions: [".tsx", ".ts", ".js", ".json"]
     },
     plugins: [
         new HtmlWebpackPlugin({

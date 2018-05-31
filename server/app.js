@@ -37,17 +37,13 @@ app.post('/login', (req, res) => {
     		if(el.login === req.body.login && el.password === req.body.password){
                 let token =jwt.sign({id: data._id, sess: true}, secret);
     			res.send({
-                    data: {
-                        authorized: true,
-                        token: token
-                    }
+                    isLogin: true,
+                    token: token
                 });
     		}
     	});
     	res.send({
-    		data:{
-    			authorized: false
-    		}
+            isLogin: false
     	});
     	
     });

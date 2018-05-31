@@ -2,7 +2,7 @@
 //данныйе переданные в него в виде таблици
 
 import * as React from 'react';
-import {TableItemComponent} from '../TableItemComponent/TableItemComponent';
+import {TableItemComponent} from './TableItemComponent';
 
 interface IStateProps {
     tableItems: Array<Object>, // массив обьектов параметров таблицы

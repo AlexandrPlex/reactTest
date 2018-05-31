@@ -1,5 +1,6 @@
 import {Dispatch} from 'redux';
 import {ActionTypes, AsyncActionTypes} from './Consts';
+import * as api from '../api';
 
 export interface IDispatchProps {
   actions: Actions;
@@ -8,47 +9,74 @@ export interface IDispatchProps {
 export class Actions {
   constructor(private dispatch: Dispatch<IDispatchProps>) {
   }
-  onLogin = (login: string, passowrd: string) => {
-    return new Promise<boolean>((resolve)=>{
+
+  //--------------------------DB-WORK-------------------------------------
+
+  onLogin = (login: string, passoword: string) => {
+    return new Promise<boolean>((resolve, reject)=>{
         this.dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.BEGIN}`});
         this.dispatch((dispatch: Dispatch<IDispatchProps>) => {
-          fetch('http://localhost:8080/login',
-          {
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-              method: 'POST',
-              mode: 'cors',
-              body: JSON.stringify({
-                login: login,
-                password: passowrd
-              })
-            })
-            .then(response => {
-              if (response.status === 200) {
-                return response.json();
-              } else {
-                throw 'error';
-              }
-            })
-            .then(data => {
-                dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.SUCCESS}`, payload: data});
-                if(data.data.authorized === false){
-                  resolve(false);
-                }else{
-                  sessionStorage.setItem('token', data.data.token);
-                  sessionStorage.setItem('sess', 'true');
-                  resolve(true);
-                }
-            })
-            .catch(error => {
-              dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.FAILURE}`, payload: error});
-            });
+          api.postLogin(login, passoword).then((res)=>{
+            if(res.isLogin){
+              this.dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.SUCCESS}`, payload: res.isLogin});
+              resolve(res);
+            }else{
+              this.dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.FAILURE}`, payload: {isErrorLogin :true}});
+              reject(res);
+            }
+          }).catch((err)=>{
+            this.dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.FAILURE}`, payload: {isErrorServer :true}});
+            reject(err);
+          })
         });
     });
   };
 
+  //--------------------------UI-WORK------------------------------------------------
+
+  onCollection = (collectionName: string) => {
+    this.dispatch({type: `${ActionTypes.CllECTION}`, payload: collectionName});
+  }
+
+
+
+
+
+
+
+          // fetch('http://localhost:8080/login',
+          // {
+          //     headers: {
+          //       'Accept': 'application/json',
+          //       'Content-Type': 'application/json'
+          //     },
+          //     method: 'POST',
+          //     mode: 'cors',
+          //     body: JSON.stringify({
+          //       login: login,
+          //       password: passowrd
+          //     })
+          //   })
+          //   .then(response => {
+          //     if (response.status === 200) {
+          //       return response.json();
+          //     } else {
+          //       throw 'error';
+          //     }
+          //   })
+          //   .then(data => {
+          //       dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.SUCCESS}`, payload: data});
+          //       if(data.data.authorized === false){
+          //         resolve(false);
+          //       }else{
+          //         sessionStorage.setItem('token', data.data.token);
+          //         sessionStorage.setItem('sess', 'true');
+          //         resolve(true);
+          //       }
+          //   })
+          //   .catch(error => {
+          //     dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.FAILURE}`, payload: error});
+          //   });
   onLoadData = (nameCollection: string, perent?: string) => {
     return new Promise<any>((resolve, reject)=>{
       this.dispatch({type: `${ActionTypes.ONLOADDATA}${AsyncActionTypes.BEGIN}`});
