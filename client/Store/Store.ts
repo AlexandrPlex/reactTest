@@ -18,7 +18,9 @@ export interface IStoreState {
   loadDataHeder: Object;
   activeTableItem: string;
   stateModalViewAddNewItem: boolean;
-  path: Object;
+  perentOrg: string;
+  perentFill: string;
+
 }
 
 const initialState = {
@@ -33,7 +35,8 @@ const initialState = {
       loadDataHeder: {},
       activeTableItem: '',
       stateModalViewAddNewItem: false,
-      path: {},
+      perentOrg: '',
+      perentFill: '',
     }
   }
 }
@@ -102,6 +105,18 @@ export default function reducer (state: IStoreState = initialState.state, action
       ...state,
       stateModalViewAddNewItem: action.payload,
     };
+
+    case `${ActionTypes.ONFILIALCOL}`:
+    return {
+      ...state,
+      perentOrg: action.payload,
+    };
+    case `${ActionTypes.ONSTAFFCOL}`:
+    return {
+      ...state,
+      perentFill: action.payload,
+    };
+
 
   }
   return state;

@@ -2,12 +2,13 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 import {Actions, IDispatchProps} from '../../../Actions/Actions';
+import {CollectionName} from '../../../Actions/Consts';
 import {IStoreState} from '../../../Store/Store';
 import * as PropTypes from 'prop-types';
 
 import './contextStyle.css';
 import {CubeGrid} from 'better-react-spinkit';
-import {CollectionName} from '../../../Actions/Consts';
+import * as chengeCollection from '../../modules/chengeCollection';
 import {ContextMenu, MenuItem, ContextMenuTrigger} from 'react-contextmenu';
 import HeaderComponent from '../DisplayComponent/HederComponent/HederComponent';
 import TableComponent from '../DisplayComponent/TableComponent/TableComponent';
@@ -19,12 +20,37 @@ interface IStateProps {
 	isErrorServer: boolean;
 	loading: boolean;
 	activeTableItem: string;
+	perentOrg: string;
+	perentFill: string;
 }
 interface IState{
 	collectionName: string;
+	pathState: string;
 }
 
 type TProps = IDispatchProps & IStateProps & IState;
+
+function loadData() {
+	if(this.props.collectionName!=CollectionName.ORGANITH){
+		if(this.props.collectionName===CollectionName.FILIAL){
+			if(this.props.perentOrg){
+				this.props.actions.onLoadData(this.props.collectionName, sessionStorage.getItem('token'), this.props.perentOrg);	
+			}else{
+				this.context.router.history.push(CollectionName.ORGANITH);
+			}
+		}
+		if(this.props.collectionName===CollectionName.STAFF){
+			if(this.props.perentOrg){
+				this.props.actions.onLoadData(this.props.collectionName, sessionStorage.getItem('token'), this.props.perentFill);	
+			}else{
+				this.context.router.history.push(CollectionName.FILIAL);
+			}
+			
+		}
+	}else{
+		this.props.actions.onLoadData(this.props.collectionName, sessionStorage.getItem('token'));
+	}
+}
 
 class MainContentComponent extends React.PureComponent<TProps, {}> {
 	static contextTypes = {
@@ -32,17 +58,28 @@ class MainContentComponent extends React.PureComponent<TProps, {}> {
 	  }
 	constructor(props: any, context: any){
 	  super(props, context);
+
 	}
 	componentWillMount(){
-		console.log(this.props.collectionName);
-		this.props.actions.onLoadData(this.props.collectionName, sessionStorage.getItem('token'), this.props.activeTableItem);
+		loadData.call(this);
 	}
 
 	onHundleChengeItem = (itemId: string) => {
 		this.props.actions.onActiveTableItem(itemId);
 	}
 	onHundleMore = () => {
-		this.context.router.history.push(`${CollectionName.FILIAL}`);
+		this.props.actions.onCheangePath(this.props.activeTableItem, this.props.collectionName);
+		this.props.actions.onActiveTableItem(null);
+		this.context.router.history.push(chengeCollection.appCollection(this.props.collectionName));
+	}
+	onHundleBack = () => {
+		this.context.router.history.push(chengeCollection.downCollection(this.props.collectionName));
+	}
+	onHundleDelete = () => {
+		this.props.actions.onDeleteItem(this.props.activeTableItem, this.props.collectionName, sessionStorage.getItem('token'))
+		.then(()=>{
+			loadData.call(this);
+		});
 	}
     render() {
      	return <div>
@@ -60,8 +97,10 @@ class MainContentComponent extends React.PureComponent<TProps, {}> {
 					</ContextMenuTrigger>
 					<ContextMenu id={"MENU_TYPE"}>
 						<MenuItem onClick={this.onHundleMore}>Подробней</MenuItem>
-						<MenuItem onClick={this.onHundleMore}>Удолить</MenuItem>
+						<MenuItem onClick={this.onHundleBack}>Назад</MenuItem>
+						<MenuItem onClick={this.onHundleDelete}>Удалить</MenuItem>
 						<MenuItem onClick={this.onHundleMore}>Редактировать</MenuItem>
+						<MenuItem onClick={this.onHundleMore}>Добавить</MenuItem>
 					</ContextMenu>
 				</div>
 				:
@@ -81,6 +120,8 @@ function mapStateToProps(state: IStoreState): IStateProps {
   	isErrorServer: state.isErrorServer,
   	loading: state.loading,
   	activeTableItem: state.activeTableItem,
+  	perentOrg: state.perentOrg,
+  	perentFill: state.perentFill,
   };
 }
 

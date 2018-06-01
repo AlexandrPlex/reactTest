@@ -72,7 +72,7 @@ app.post('/setData',requireToken,(req, res) =>{
 });
 
 app.delete('/delete',requireToken,(req, res) =>{
-    db.deleteItem(req.body.id, req.body.needData).then((data)=>{
+    db.deleteItem(req.body.id, req.body.collectionName).then((data)=>{
 
         res.send(data);
     });

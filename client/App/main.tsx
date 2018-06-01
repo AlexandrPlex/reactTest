@@ -11,9 +11,9 @@ export class Main extends React.Component {
                 <BrowserRouter>
                     <Switch>
                         <Route exact path="/" component={LoginComponent} />
-                        <Route path={`/${CollectionName.ORGANITH}`} component={RouterComponentHoc(MainContentComponent, CollectionName.ORGANITH)} />
-                        <Route path={`/${CollectionName.FILIAL}`} component={RouterComponentHoc(MainContentComponent, CollectionName.FILIAL)} />
-                        <Route path={`/${CollectionName.STAFF}`} component={RouterComponentHoc(MainContentComponent, CollectionName.STAFF)} />  
+                        <Route path={`/${CollectionName.ORGANITH}`} component={RouterComponentHoc(MainContentComponent, CollectionName.ORGANITH, 'state_1')} />
+                        <Route path={`/${CollectionName.FILIAL}`} component={RouterComponentHoc(MainContentComponent, CollectionName.FILIAL, 'state_2')} />
+                        <Route path={`/${CollectionName.STAFF}`} component={RouterComponentHoc(MainContentComponent, CollectionName.STAFF, 'state_3')} />  
                     </Switch> 
                 </BrowserRouter>
         );

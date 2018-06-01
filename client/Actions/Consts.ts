@@ -5,6 +5,9 @@ export enum ActionTypes {
   ACTIVETABLEITEM = 'ACTIVE_TABLE_ITEM',
   STATEMAODALVIEW = 'STATE_MODAL_VIEW',
   ADDNEWITEM = 'ADD_NEW_ITEM',
+  ONFILIALCOL = 'ON_FILIAL_COL',
+  ONSTAFFCOL = 'ON_STAFF_COL',
+  DELETE = 'DELETE',
 }
 
 export enum AsyncActionTypes {
@@ -26,5 +29,6 @@ export enum SiteConfig {
 
 export enum ServerCall {
 	LOGIN = "login",
-  GETDATA = "getData"
+  GETDATA = "getData",
+  DELETE = "delete",
 }

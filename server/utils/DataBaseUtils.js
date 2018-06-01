@@ -43,8 +43,9 @@ export function setData(needData, data, perent){
 	    return datasave.save();
 }
 
-export function deleteItem(id, needData) {
-    return mongoose.model(needData).findById(id).remove();
+export function deleteItem(id, collectionName) {
+	console.log(collectionName)
+    return mongoose.model(collectionName).findById(id).remove();
 }
 
 // export function createNote(data) {

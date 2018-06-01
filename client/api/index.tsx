@@ -43,3 +43,27 @@ export function getData(nameColletion: string, token: string, filterID?: string)
 	    }
 	  })
 }
+
+export function deleteItem(id: any, nameCollection: string, token: string){
+	return fetch(`${SiteConfig.APIPREFIX}/${ServerCall.DELETE}`,
+        {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'token': token,
+            },
+            method: 'DELETE',
+            mode: 'cors',
+            body: JSON.stringify({
+              collectionName: nameCollection,
+              id: id
+            })
+          })
+          .then(response => {
+            if (response.status === 200||304) {
+              return response.json();
+            } else {
+              throw response.status;
+            }
+          })
+}

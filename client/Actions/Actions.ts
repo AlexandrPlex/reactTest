@@ -1,5 +1,5 @@
 import {Dispatch} from 'redux';
-import {ActionTypes, AsyncActionTypes} from './Consts';
+import {ActionTypes, AsyncActionTypes, CollectionName} from './Consts';
 import * as api from '../api';
 
 export interface IDispatchProps {
@@ -58,6 +58,16 @@ export class Actions {
     this.dispatch({type: `${ActionTypes.ACTIVETABLEITEM}`, payload: idActiveItem});
   };
 
+  onCheangePath = (nextState: string, colName: string) => {
+    if(colName === CollectionName.FILIAL){
+      this.dispatch({type: `${ActionTypes.ONSTAFFCOL}`, payload: nextState});
+    }
+    if(colName == CollectionName.ORGANITH){
+      this.dispatch({type: `${ActionTypes.ONFILIALCOL}`, payload: nextState});
+    }
+    
+  };
+
   onChengeStateModalViewAddItem = (stateModal: boolean) => {
     this.dispatch({type: `${ActionTypes.STATEMAODALVIEW}`, payload: stateModal});
   };
@@ -96,31 +106,21 @@ export class Actions {
     });
   };
 
-  onDeleteItem = (id: any, nameCollection: string) => {
+  onDeleteItem = (id: any, nameCollection: string, token: string) => {
     return new Promise<any>((resolve, reject)=>{
-        fetch(`http://localhost:8080/delete`,
-        {
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            method: 'DELETE',
-            mode: 'cors',
-            body: JSON.stringify({
-              token: sessionStorage.getItem('token'),
-              needData: nameCollection,
-              id: id
-            })
-          })
-          .then(response => {
-            if (response.status === 200) {
-              return response.json();
-            } else {
-              reject(new Error(String(response.status)));
+          this.dispatch({type: `${ActionTypes.DELETE}${AsyncActionTypes.BEGIN}`});
+          api.deleteItem(id, nameCollection, token)
+          .then(data => {
+            if(data.ok!==1){
+                this.dispatch({type: `${ActionTypes.DELETE}${AsyncActionTypes.FAILURE}`, payload: {isErrorAccess :true}});
+            }else{
+              this.dispatch({type: `${ActionTypes.DELETE}${AsyncActionTypes.SUCCESS}`});
+              resolve(data);
             }
           })
-          .then(() => {
-              resolve(nameCollection);
+          .catch(err => {
+            this.dispatch({type: `${ActionTypes.DELETE}${AsyncActionTypes.FAILURE}`, payload: {isErrorServer: true}});
+            reject(err);
           });
     });
   }
