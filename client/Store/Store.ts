@@ -11,8 +11,9 @@ export interface IActionType extends Action {
 export interface IStoreState {
   loginStatus: boolean;
   loading: boolean;
-  isErrorLogin: boolean;
+  isErrorAccess: boolean;
   isErrorServer: boolean;
+  activeColletion: string;
   loadData: Array<Object>;
   loadDataHeder: Object;
   activeTableItem: string;
@@ -24,8 +25,9 @@ const initialState = {
     return {
       loginStatus: false,
       loading: false,
-      isErrorLogin: false,
+      isErrorAccess: false,
       isErrorServer: false,
+      activeColletion: '',
       loadData: [],
       loadDataHeder: {},
       activeTableItem: '',
@@ -48,7 +50,7 @@ export default function reducer (state: IStoreState = initialState.state, action
     case `${ActionTypes.LOGIN}${AsyncActionTypes.SUCCESS}`:
     return {
       ...state,
-      loginStatus: action.payload,
+      loginStatus: action.payload.isLogin,
       loading: false,
     };
 
@@ -57,7 +59,7 @@ export default function reducer (state: IStoreState = initialState.state, action
       ...state,
       loading: false,
       loginStatus: false,
-      isErrorLogin: action.payload.isErrorLogin ? action.payload.isErrorLogin : false,
+      isErrorAccess: action.payload.isErrorAccess ? action.payload.isErrorAccess : false,
       isErrorServer: action.payload.isErrorServer ? action.payload.isErrorServer : false,
     };
 
@@ -73,8 +75,16 @@ export default function reducer (state: IStoreState = initialState.state, action
     return {
       ...state,
       loadData: action.payload.data,
-      loadDataHeder: action.payload.dataHeder[0],
+      loadDataHeder: action.payload.dataHeader[0],
       loading: false,
+    };
+
+    case `${ActionTypes.ONLOADDATA}${AsyncActionTypes.FAILURE}`:
+    return {
+      ...state,
+      loading: false,
+      isErrorAccess: action.payload.isErrorAccess ? action.payload.isErrorAccess : false,
+      isErrorServer: action.payload.isErrorServer ? action.payload.isErrorServer : false,
     };
 
     //------------------------ACTIVE-ON-VIEW----------------------------

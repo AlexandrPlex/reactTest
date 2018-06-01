@@ -14,11 +14,32 @@ export function postLogin(login: string, password: string) {
 			  })
 			})
 			  .then(response => {
-			    if (response.status === 200) {
+			    if (response.status === 200 || 304) {
 			      return response.json();
 			    } else {
 			      throw response.status;
 			    }
 			  })
 	                    
+}
+
+export function getData(nameColletion: string, token: string, filterID?: string) {
+	let filterConf = filterID ? `&${filterID}` : '';
+	return	fetch(`${SiteConfig.APIPREFIX}/${ServerCall.GETDATA}?collectionName=${nameColletion}${filterConf}`,
+	{
+	    headers: {
+	      'Accept': 'application/json',
+	      'Content-Type': 'application/json',
+	      'token': `${token}`, 
+	    },
+	    method: 'GET',
+	    mode: 'cors',
+	  })
+	  .then(response => {
+	    if (response.status === 200 || 304) {
+	      return response.json();
+	    } else {
+	      throw response.status;
+	    }
+	  })
 }

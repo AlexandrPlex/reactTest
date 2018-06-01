@@ -18,10 +18,10 @@ export class Actions {
         this.dispatch((dispatch: Dispatch<IDispatchProps>) => {
           api.postLogin(login, passoword).then((res)=>{
             if(res.isLogin){
-              this.dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.SUCCESS}`, payload: res.isLogin});
+              this.dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.SUCCESS}`, payload: res});
               resolve(res);
             }else{
-              this.dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.FAILURE}`, payload: {isErrorLogin :true}});
+              this.dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.FAILURE}`, payload: {isErrorAccess :true}});
               reject(res);
             }
           }).catch((err)=>{
@@ -32,80 +32,24 @@ export class Actions {
     });
   };
 
-  //--------------------------UI-WORK------------------------------------------------
 
-  onCollection = (collectionName: string) => {
-    this.dispatch({type: `${ActionTypes.CllECTION}`, payload: collectionName});
-  }
-
-
-
-
-
-
-
-          // fetch('http://localhost:8080/login',
-          // {
-          //     headers: {
-          //       'Accept': 'application/json',
-          //       'Content-Type': 'application/json'
-          //     },
-          //     method: 'POST',
-          //     mode: 'cors',
-          //     body: JSON.stringify({
-          //       login: login,
-          //       password: passowrd
-          //     })
-          //   })
-          //   .then(response => {
-          //     if (response.status === 200) {
-          //       return response.json();
-          //     } else {
-          //       throw 'error';
-          //     }
-          //   })
-          //   .then(data => {
-          //       dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.SUCCESS}`, payload: data});
-          //       if(data.data.authorized === false){
-          //         resolve(false);
-          //       }else{
-          //         sessionStorage.setItem('token', data.data.token);
-          //         sessionStorage.setItem('sess', 'true');
-          //         resolve(true);
-          //       }
-          //   })
-          //   .catch(error => {
-          //     dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.FAILURE}`, payload: error});
-          //   });
-  onLoadData = (nameCollection: string, perent?: string) => {
+  onLoadData = (nameColletion: string, token: string, filterID?: string) => {
     return new Promise<any>((resolve, reject)=>{
       this.dispatch({type: `${ActionTypes.ONLOADDATA}${AsyncActionTypes.BEGIN}`});
       this.dispatch((dispatch: Dispatch<IDispatchProps>) => {
-        fetch(`http://localhost:8080/getData`,
-        {
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            method: 'POST',
-            mode: 'cors',
-            body: JSON.stringify({
-              token: sessionStorage.getItem('token'),
-              needData: nameCollection,
-              perent: perent ? perent : false,
-            })
-          })
-          .then(response => {
-            if (response.status === 200) {
-              return response.json();
-            } else {
-              reject(new Error(String(response.status)))
-            }
-          })
-          .then(data => {
-              dispatch({type: `${ActionTypes.ONLOADDATA}${AsyncActionTypes.SUCCESS}`, payload: data});
-              resolve(nameCollection);
-          })
+        api.getData(nameColletion, token)
+        .then(data => {
+          if(data.isError){
+              this.dispatch({type: `${ActionTypes.ONLOADDATA}${AsyncActionTypes.FAILURE}`, payload: {isErrorAccess :true}});
+          }else{
+            this.dispatch({type: `${ActionTypes.ONLOADDATA}${AsyncActionTypes.SUCCESS}`, payload: data});
+            resolve(data);
+          }
+        })
+        .catch(err => {
+          this.dispatch({type: `${ActionTypes.ONLOADDATA}${AsyncActionTypes.FAILURE}`, payload: {isErrorServer: true}});
+          reject(err);
+        });
       });
     });
   };
@@ -181,3 +125,42 @@ export class Actions {
     });
   }
 }
+
+
+
+
+
+
+          // fetch('http://localhost:8080/login',
+          // {
+          //     headers: {
+          //       'Accept': 'application/json',
+          //       'Content-Type': 'application/json'
+          //     },
+          //     method: 'POST',
+          //     mode: 'cors',
+          //     body: JSON.stringify({
+          //       login: login,
+          //       password: passowrd
+          //     })
+          //   })
+          //   .then(response => {
+          //     if (response.status === 200) {
+          //       return response.json();
+          //     } else {
+          //       throw 'error';
+          //     }
+          //   })
+          //   .then(data => {
+          //       dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.SUCCESS}`, payload: data});
+          //       if(data.data.authorized === false){
+          //         resolve(false);
+          //       }else{
+          //         sessionStorage.setItem('token', data.data.token);
+          //         sessionStorage.setItem('sess', 'true');
+          //         resolve(true);
+          //       }
+          //   })
+          //   .catch(error => {
+          //     dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.FAILURE}`, payload: error});
+          //   });

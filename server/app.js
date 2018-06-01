@@ -18,7 +18,7 @@ app.use( bodyParser.json() );
 app.use(cors({ origin: '*' }));
 
 const requireToken = (req,res,next) => {
-  const token = req.body.token;
+  const token = req.headers.token;
 
   jwt.verify(token, secret, (err, decoded) => {
     if (err) {
@@ -38,7 +38,8 @@ app.post('/login', (req, res) => {
                 let token =jwt.sign({id: data._id, sess: true}, secret);
     			res.send({
                     isLogin: true,
-                    token: token
+                    token: token,
+                    userName: el.name,
                 });
     		}
     	});
@@ -49,15 +50,16 @@ app.post('/login', (req, res) => {
     });
 });
 
-app.post('/getData',requireToken,(req, res) =>{
-  db.listData(req.body.needData, req.body.perent).then((data)=>{
-    db.listHederData(req.body.needData).then((dataHeder)=>{
-        res.send({
-            data: data,
-            dataHeder: dataHeder
+app.get('/getData',requireToken,(req, res) =>{
+    try{
+        db.listHederData(req.query.collectionName).then(dataHeader => {
+            db.listData(req.query.collectionName, req.query.filterID || null).then(data => {
+                res.send({isError: false, data: data, dataHeader: dataHeader});
+            });
         });
-    });
-  });
+    }catch(err){
+        res.send({isError: true, bodyErroe: err});
+    }
     
 });
 

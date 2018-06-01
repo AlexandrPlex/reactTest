@@ -19,15 +19,15 @@ export function listUsers(data) {
     return User.find();
 }
 
-export function listData(needData, perent){
+export function listData(collectionName, perent){
 	if(perent){
-		return mongoose.model(needData).find({_idPerent: perent});	
+		return mongoose.model(collectionName).find({_idPerent: perent});	
 	}else{
-		return mongoose.model(needData).find();
+		return mongoose.model(collectionName).find();
 	}
 }
-export function listHederData(needData){
-	return OrganithHeder.find({nametable : needData});
+export function listHederData(collectionName){
+	return OrganithHeder.find({nametable : collectionName});
 }
 
 export function setData(needData, data, perent){

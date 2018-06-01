@@ -1,6 +1,5 @@
 export enum ActionTypes {
   LOGIN = 'ACTION_LOGIN',
-  CllECTION = 'ACTION_CllECTION',
   // LOGOUT = 'ACTION_LOGOUT',
   ONLOADDATA = 'ACTION_LOAD_DATA',
   ACTIVETABLEITEM = 'ACTIVE_TABLE_ITEM',
@@ -27,4 +26,5 @@ export enum SiteConfig {
 
 export enum ServerCall {
 	LOGIN = "login",
+  GETDATA = "getData"
 }

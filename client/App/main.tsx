@@ -10,7 +10,7 @@ export class Main extends React.Component {
         return (
                 <BrowserRouter>
                     <Switch>
-                        <Route exact path="/" component={LoginComponent}/>
+                        <Route exact path="/" component={LoginComponent} />
                         <Route path={`/${CollectionName.ORGANITH}`} component={RouterComponentHoc(MainContentComponent, CollectionName.ORGANITH)} />
                         <Route path={`/${CollectionName.FILIAL}`} component={RouterComponentHoc(MainContentComponent, CollectionName.FILIAL)} />
                         <Route path={`/${CollectionName.STAFF}`} component={RouterComponentHoc(MainContentComponent, CollectionName.STAFF)} />  

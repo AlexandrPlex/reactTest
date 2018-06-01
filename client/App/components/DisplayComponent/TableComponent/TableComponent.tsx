@@ -6,19 +6,19 @@ import {TableItemComponent} from './TableItemComponent';
 
 interface IStateProps {
     tableItems: Array<Object>, // массив обьектов параметров таблицы
-    tableHeder: any, // обьект с параметраим для заголовков таблицы
+    tableHeader: any, // обьект с параметраим для заголовков таблицы
     onHandleClick: any // фукция которая выполняется при клике на строку таблицы
 }
 
-export class TableComponent extends React.Component<IStateProps, {}> {
+export default class TableComponent extends React.Component<IStateProps, {}> {
     render(){
     let onHandleClick = this.props.onHandleClick;
     return (
         <table className='table table-hover table-inverse'>
             <thead className='thead-inverse' key = {'thead'}><tr>
                 {
-                    Object.keys(this.props.tableHeder).map((key)=>{
-                        return(<th key={'thead'+key}>{this.props.tableHeder[key]}</th>);
+                    Object.keys(this.props.tableHeader).map((key)=>{
+                        return(<th key={'thead'+key}>{this.props.tableHeader[key]}</th>);
                     })
                 }
             </tr></thead>
