@@ -80,12 +80,13 @@ export class Actions {
         {
             headers: {
               'Accept': 'application/json',
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'token': sessionStorage.getItem('token'),
             },
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify({
-              token: sessionStorage.getItem('token'),
+              
               needData: nameCollection,
               data: data,
               perent: perent,

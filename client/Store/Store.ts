@@ -67,6 +67,27 @@ export default function reducer (state: IStoreState = initialState.state, action
       isErrorAccess: action.payload.isErrorAccess ? action.payload.isErrorAccess : false,
       isErrorServer: action.payload.isErrorServer ? action.payload.isErrorServer : false,
     };
+    //------------------------DELETE-DATA------------------------------
+
+    case `${ActionTypes.DELETE}${AsyncActionTypes.BEGIN}`:
+    return {
+      ...state,
+      loading: true,
+    };
+
+    case `${ActionTypes.DELETE}${AsyncActionTypes.SUCCESS}`:
+    return {
+      ...state,
+      loading: false,
+    };
+
+    case `${ActionTypes.DELETE}${AsyncActionTypes.FAILURE}`:
+    return {
+      ...state,
+      loading: false,
+      isErrorAccess: action.payload.isErrorAccess ? action.payload.isErrorAccess : false,
+      isErrorServer: action.payload.isErrorServer ? action.payload.isErrorServer : false,
+    };
 
     //------------------------LOAD-DATA------------------------------
 

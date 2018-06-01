@@ -12,6 +12,8 @@ import * as chengeCollection from '../../modules/chengeCollection';
 import {ContextMenu, MenuItem, ContextMenuTrigger} from 'react-contextmenu';
 import HeaderComponent from '../DisplayComponent/HederComponent/HederComponent';
 import TableComponent from '../DisplayComponent/TableComponent/TableComponent';
+import * as Modal from 'react-modal';
+import {AddNewItemViewComponent} from '../DisplayComponent/AddNewItemViewComponent/AddNewItemViewComponent';
 
 interface IStateProps {
 	loadData: Array<Object>;
@@ -22,6 +24,7 @@ interface IStateProps {
 	activeTableItem: string;
 	perentOrg: string;
 	perentFill: string;
+	stateModalViewAddNewItem: boolean;
 }
 interface IState{
 	collectionName: string;
@@ -52,6 +55,17 @@ function loadData() {
 	}
 }
 
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : '50%',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
+
 class MainContentComponent extends React.PureComponent<TProps, {}> {
 	static contextTypes = {
 	    router: PropTypes.object
@@ -81,6 +95,21 @@ class MainContentComponent extends React.PureComponent<TProps, {}> {
 			loadData.call(this);
 		});
 	}
+	onHundleModal = () => {
+		this.props.actions.onChengeStateModalViewAddItem(this.props.stateModalViewAddNewItem ? false : true);
+	}
+	onHundleAdd = (addValue: Object) => {
+		this.props.actions.onAddNewItem(this.props.collectionName, addValue, 
+			this.props.collectionName !== CollectionName.ORGANITH ?
+			this.props.collectionName === CollectionName.FILIAL ? this.props.perentOrg : this.props.perentFill :null
+			).then(()=>{
+				loadData.call(this);
+				this.onHundleModal();
+			});
+	}
+	onHundleEdit = () => {
+		
+	}
     render() {
      	return <div>
 			{ 
@@ -99,9 +128,14 @@ class MainContentComponent extends React.PureComponent<TProps, {}> {
 						<MenuItem onClick={this.onHundleMore}>Подробней</MenuItem>
 						<MenuItem onClick={this.onHundleBack}>Назад</MenuItem>
 						<MenuItem onClick={this.onHundleDelete}>Удалить</MenuItem>
-						<MenuItem onClick={this.onHundleMore}>Редактировать</MenuItem>
-						<MenuItem onClick={this.onHundleMore}>Добавить</MenuItem>
+						<MenuItem onClick={this.onHundleEdit}>Редактировать</MenuItem>
+						<MenuItem onClick={this.onHundleModal}>Добавить</MenuItem>
 					</ContextMenu>
+					<Modal isOpen={this.props.stateModalViewAddNewItem} style={customStyles}>
+					  <AddNewItemViewComponent headerNewItem={this.props.loadDataHeder} 
+					                           onHandleHideAddModalView={this.onHundleModal}
+					                           onHandleAddNewItem={this.onHundleAdd} />
+					</Modal>
 				</div>
 				:
 				null
@@ -122,6 +156,7 @@ function mapStateToProps(state: IStoreState): IStateProps {
   	activeTableItem: state.activeTableItem,
   	perentOrg: state.perentOrg,
   	perentFill: state.perentFill,
+  	stateModalViewAddNewItem: state.stateModalViewAddNewItem,
   };
 }
 

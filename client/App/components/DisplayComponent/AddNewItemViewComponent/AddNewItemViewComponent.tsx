@@ -4,7 +4,7 @@ import './AddNewItemViewComponentStyle.less';
 
 interface IStateProps {
   headerNewItem: any;
-  onHandleShowAddModalView: any;
+  onHandleHideAddModalView: any;
   onHandleAddNewItem: any;
 }
 
@@ -29,7 +29,7 @@ export class AddNewItemViewComponent extends React.Component<IStateProps, {addVa
             }
             <br/>
             <button type="button" className="btn btn-secondary"
-                    onClick={this.props.onHandleShowAddModalView.bind(this, false)}>Отменить
+                    onClick={this.props.onHandleHideAddModalView.bind(this, false)}>Отменить
             </button>
             <button type="button" className="btn btn-success"
                     onClick={this.props.onHandleAddNewItem.bind(this, this.state.addValue)}>Добавить
