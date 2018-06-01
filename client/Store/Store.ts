@@ -18,6 +18,7 @@ export interface IStoreState {
   loadDataHeder: Object;
   activeTableItem: string;
   stateModalViewAddNewItem: boolean;
+  path: Object;
 }
 
 const initialState = {
@@ -32,6 +33,7 @@ const initialState = {
       loadDataHeder: {},
       activeTableItem: '',
       stateModalViewAddNewItem: false,
+      path: {},
     }
   }
 }

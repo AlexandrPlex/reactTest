@@ -3,8 +3,12 @@ import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 import {Actions, IDispatchProps} from '../../../Actions/Actions';
 import {IStoreState} from '../../../Store/Store';
+import * as PropTypes from 'prop-types';
 
+import './contextStyle.css';
 import {CubeGrid} from 'better-react-spinkit';
+import {CollectionName} from '../../../Actions/Consts';
+import {ContextMenu, MenuItem, ContextMenuTrigger} from 'react-contextmenu';
 import HeaderComponent from '../DisplayComponent/HederComponent/HederComponent';
 import TableComponent from '../DisplayComponent/TableComponent/TableComponent';
 
@@ -14,6 +18,7 @@ interface IStateProps {
 	isErrorAccess: boolean;
 	isErrorServer: boolean;
 	loading: boolean;
+	activeTableItem: string;
 }
 interface IState{
 	collectionName: string;
@@ -22,15 +27,23 @@ interface IState{
 type TProps = IDispatchProps & IStateProps & IState;
 
 class MainContentComponent extends React.PureComponent<TProps, {}> {
+	static contextTypes = {
+	    router: PropTypes.object
+	  }
+	constructor(props: any, context: any){
+	  super(props, context);
+	}
 	componentWillMount(){
 		console.log(this.props.collectionName);
-		this.props.actions.onLoadData(this.props.collectionName, sessionStorage.getItem('token'));
+		this.props.actions.onLoadData(this.props.collectionName, sessionStorage.getItem('token'), this.props.activeTableItem);
 	}
 
-	onHundle = () => {
-
+	onHundleChengeItem = (itemId: string) => {
+		this.props.actions.onActiveTableItem(itemId);
 	}
-
+	onHundleMore = () => {
+		this.context.router.history.push(`${CollectionName.FILIAL}`);
+	}
     render() {
      	return <div>
 			{ 
@@ -42,7 +55,14 @@ class MainContentComponent extends React.PureComponent<TProps, {}> {
 				? 
 				<div>
 					<HeaderComponent nameUser={sessionStorage.getItem('userName')} />
-					<div className='container'><TableComponent tableItems={this.props.loadData} tableHeader={this.props.loadDataHeder} onHandleClick={this.onHundle} /></div>
+					<ContextMenuTrigger id={"MENU_TYPE"} holdToDisplay={1000}>
+						<div className='container'><TableComponent tableItems={this.props.loadData} tableHeader={this.props.loadDataHeder} onHandleClick={this.onHundleChengeItem} /></div>
+					</ContextMenuTrigger>
+					<ContextMenu id={"MENU_TYPE"}>
+						<MenuItem onClick={this.onHundleMore}>Подробней</MenuItem>
+						<MenuItem onClick={this.onHundleMore}>Удолить</MenuItem>
+						<MenuItem onClick={this.onHundleMore}>Редактировать</MenuItem>
+					</ContextMenu>
 				</div>
 				:
 				null
@@ -60,6 +80,7 @@ function mapStateToProps(state: IStoreState): IStateProps {
   	isErrorAccess: state.isErrorAccess,
   	isErrorServer: state.isErrorServer,
   	loading: state.loading,
+  	activeTableItem: state.activeTableItem,
   };
 }
 

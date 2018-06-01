@@ -24,7 +24,7 @@ export function postLogin(login: string, password: string) {
 }
 
 export function getData(nameColletion: string, token: string, filterID?: string) {
-	let filterConf = filterID ? `&${filterID}` : '';
+	let filterConf = filterID ? `&filterID=${filterID}` : '';
 	return	fetch(`${SiteConfig.APIPREFIX}/${ServerCall.GETDATA}?collectionName=${nameColletion}${filterConf}`,
 	{
 	    headers: {

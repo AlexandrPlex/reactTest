@@ -8,9 +8,9 @@ interface IStateProps {
 }
 
 export class TableItemComponent extends React.Component<IStateProps, {}> {
-    render(): JSX.Element | false | null {
+    render(){
 
-      return <tr onClick={this.props.onHandleClick.bind(this, this.props.itemObject['_id'])}>
+      return <tr onContextMenu={this.props.onHandleClick.bind(this, this.props.itemObject['_id'])}>
           {
               Object.keys(this.props.itemObject).map((key: string) => {
                   if (key.indexOf('_id'))

@@ -37,7 +37,7 @@ export class Actions {
     return new Promise<any>((resolve, reject)=>{
       this.dispatch({type: `${ActionTypes.ONLOADDATA}${AsyncActionTypes.BEGIN}`});
       this.dispatch((dispatch: Dispatch<IDispatchProps>) => {
-        api.getData(nameColletion, token)
+        api.getData(nameColletion, token, filterID)
         .then(data => {
           if(data.isError){
               this.dispatch({type: `${ActionTypes.ONLOADDATA}${AsyncActionTypes.FAILURE}`, payload: {isErrorAccess :true}});
