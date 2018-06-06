@@ -1,0 +1,3 @@
+{ "_id" : { "$oid" : "5b07ef7c89832a0f9c83d87a" }, "nametable" : "Organith", "name" : "Название", "adress" : "Адрес", "phone" : "Телефон" }
+{ "_id" : { "$oid" : "5b0bf220517ffc28b0b91238" }, "nametable" : "Filial", "city" : "Город", "adress" : "Адрес", "phone" : "Телефон" }
+{ "_id" : { "$oid" : "5b0bf273517ffc28b0b91239" }, "nametable" : "Staff", "fullName" : "Полное имя", "adress" : "Адрес", "phone" : "Телефон", "salary" : "Зарплата" }

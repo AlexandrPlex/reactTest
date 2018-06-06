@@ -1,0 +1,12 @@
+{ "_id" : { "$oid" : "5b07d14f89832a0f9c83d877" }, "_idPerent" : "5b05877c37cac821880b164f", "city" : "Пенза", "adress" : "Тисовая улица, дом 5", "phone" : "890564862" }
+{ "_id" : { "$oid" : "5b07d1cc154d9e0f9cea6431" }, "_idPerent" : "5b05877c37cac821880b164f", "city" : "Уфа", "adress" : "Тисовая улица, дом 5", "phone" : "890564862" }
+{ "_id" : { "$oid" : "5b07d1d8154d9e0f9cea6432" }, "_idPerent" : "5b05877c37cac821880b164f", "city" : "Омск", "adress" : "Тисовая улица, дом 5", "phone" : "890564862" }
+{ "_id" : { "$oid" : "5b0bf8620bcf1f062c0fa6b1" }, "city" : "Самара", "adress" : "Строителей 5", "phone" : "89654265896", "__v" : 0 }
+{ "_id" : { "$oid" : "5b0bf8840bcf1f062c0fa6b2" }, "city" : "Петроград", "adress" : "Дорожная 10", "phone" : "89545686855", "__v" : 0 }
+{ "_id" : { "$oid" : "5b0bf95e0bcf1f062c0fa6b3" }, "city" : "Звенигород", "adress" : "Дорожная 45", "phone" : "323545253", "__v" : 0 }
+{ "_id" : { "$oid" : "5b0c1986f8f99e26e4a67519" }, "city" : "afdasf", "adress" : "asdf", "phone" : "sdfaadf", "__v" : 0 }
+{ "_id" : { "$oid" : "5b0c19c1f8f99e26e4a6751a" }, "city" : "asdf", "adress" : "asdf", "phone" : "asdf", "__v" : 0 }
+{ "_id" : { "$oid" : "5b0c19f7f8f99e26e4a6751b" }, "city" : "dfadf", "adress" : "sdf", "phone" : "adf", "__v" : 0 }
+{ "_id" : { "$oid" : "5b0c1a9e6fda8e1998d620f5" }, "city" : "adf", "adress" : "adsfa", "phone" : "adsfaf", "_idPerent" : "5b05877c37cac821880b164f", "__v" : 0 }
+{ "_id" : { "$oid" : "5b0c1ad46fda8e1998d620f6" }, "city" : "asg", "adress" : "sadfg", "phone" : "afg", "_idPerent" : "5b07bba689832a0f9c83d876", "__v" : 0 }
+{ "_id" : { "$oid" : "5b0c1b5351199726a4f85c76" }, "adress" : "sfdg", "phone" : "sdfg", "city" : "dsfg", "_idPerent" : "5b05877c37cac821880b164f", "__v" : 0 }

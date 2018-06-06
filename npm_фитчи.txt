@@ -1,0 +1,5 @@
+https://www.npmjs.com/package/react-burger-menu - меню
+https://react.parts/react-modal?search=modal&collection=React - модальное окно
+http://reactcommunity.org/react-modal/examples/set_app_element.html
+https://www.npmjs.com/package/react-contextmenu - контекстное меню
+https://www.youtube.com/watch?v=-qzRU7T4la0&index=5&list=PLqHlAwsJRxANc2mFeSIRLdglGf2ZNzNBr -
