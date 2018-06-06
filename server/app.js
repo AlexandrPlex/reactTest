@@ -65,7 +65,7 @@ app.get('/getData',requireToken,(req, res) =>{
 
 app.post('/setData',requireToken,(req, res) =>{
     
-    db.setData(req.body.needData, req.body.data, req.body.perent).then((data)=>{
+    db.setData(req.body.collectionName, req.body.data, req.body.perent).then((data)=>{
         console.log(data);
         res.send(data);
     });
@@ -73,7 +73,12 @@ app.post('/setData',requireToken,(req, res) =>{
 
 app.delete('/delete',requireToken,(req, res) =>{
     db.deleteItem(req.body.id, req.body.collectionName).then((data)=>{
+        res.send(data);
+    });
+});
 
+app.post('/updata',requireToken,(req, res) =>{
+    db.upData(req.body.collectionName, req.body.data, req.body.id).then(data => {
         res.send(data);
     });
 });

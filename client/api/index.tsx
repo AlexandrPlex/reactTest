@@ -67,3 +67,53 @@ export function deleteItem(id: any, nameCollection: string, token: string){
             }
           })
 }
+
+export function addItem(nameCollection: string, data: Object, token: string, perent?: any){
+	return fetch(`${SiteConfig.APIPREFIX}/${ServerCall.ADDITEM}`,
+        {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'token': token,
+            },
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify({
+              collectionName: nameCollection,
+              data: data,
+  			  perent: perent ? perent : null,
+            })
+          })
+          .then(response => {
+            if (response.status === 200||304) {
+              return response.json();
+            } else {
+              throw response.status;
+            }
+          })
+}
+
+export function upDateItem(nameCollection: string, data: Object, id: string, token: string){
+	return fetch(`${SiteConfig.APIPREFIX}/${ServerCall.UPDATEITEM}`,
+        {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'token': token,
+            },
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify({
+              collectionName: nameCollection,
+              data: data,
+  			  id: id,
+            })
+          })
+          .then(response => {
+            if (response.status === 200||304) {
+              return response.json();
+            } else {
+              throw response.status;
+            }
+          })
+}

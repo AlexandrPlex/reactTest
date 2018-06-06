@@ -54,55 +54,21 @@ export class Actions {
     });
   };
 
-  onActiveTableItem = (idActiveItem: string) => {
-    this.dispatch({type: `${ActionTypes.ACTIVETABLEITEM}`, payload: idActiveItem});
-  };
-
-  onCheangePath = (nextState: string, colName: string) => {
-    if(colName === CollectionName.FILIAL){
-      this.dispatch({type: `${ActionTypes.ONSTAFFCOL}`, payload: nextState});
-    }
-    if(colName == CollectionName.ORGANITH){
-      this.dispatch({type: `${ActionTypes.ONFILIALCOL}`, payload: nextState});
-    }
-    
-  };
-
-  onChengeStateModalViewAddItem = (stateModal: boolean) => {
-    this.dispatch({type: `${ActionTypes.STATEMAODALVIEW}`, payload: stateModal});
-  };
-
-  onAddNewItem = (nameCollection: string, data: Object, perent?: any) => {
+  onAddNewItem = (nameCollection: string, data: Object, token: string, perent?: any) => {
     return new Promise<any>((resolve, reject)=>{
-      this.dispatch({type: `${ActionTypes.ADDNEWITEM}${AsyncActionTypes.BEGIN}`});
-      this.dispatch((dispatch: Dispatch<IDispatchProps>) => {
-        fetch(`http://localhost:8080/setData`,
-        {
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'token': sessionStorage.getItem('token'),
-            },
-            method: 'POST',
-            mode: 'cors',
-            body: JSON.stringify({
-              
-              needData: nameCollection,
-              data: data,
-              perent: perent,
-            })
-          })
-          .then(response => {
-            if (response.status === 200) {
-              return response.json();
-            } else {
-              reject(new Error(String(response.status)));
-            }
-          })
-          .then(data => {
-              dispatch({type: `${ActionTypes.ADDNEWITEM}${AsyncActionTypes.SUCCESS}`, payload: data});
-              resolve(nameCollection);
-          })
+      this.dispatch({type: `${ActionTypes.ADDITEM}${AsyncActionTypes.BEGIN}`});
+      api.addItem(nameCollection, data, token, perent)
+      .then(data => {
+        if(!data._id){
+            this.dispatch({type: `${ActionTypes.ADDITEM}${AsyncActionTypes.FAILURE}`, payload: {isErrorAccess :true}});
+        }else{
+          this.dispatch({type: `${ActionTypes.ADDITEM}${AsyncActionTypes.SUCCESS}`});
+          resolve(data);
+        }
+      })
+      .catch(err => {
+        this.dispatch({type: `${ActionTypes.ADDITEM}${AsyncActionTypes.FAILURE}`, payload: {isErrorServer: true}});
+        reject(err);
       });
     });
   };
@@ -125,43 +91,44 @@ export class Actions {
           });
     });
   }
+
+  onUpDateItem = (nameCollection: string, data: Object, id: string, token: string) => {
+    return new Promise<any>((resolve, reject)=>{
+          this.dispatch({type: `${ActionTypes.UPDATEITEM}${AsyncActionTypes.BEGIN}`});
+          api.upDateItem(nameCollection, data, id, token)
+          .then(data => {
+            if(data.ok!==1 && data.nModified!== 1){
+                this.dispatch({type: `${ActionTypes.UPDATEITEM}${AsyncActionTypes.FAILURE}`, payload: {isErrorAccess :true}});
+            }else{
+              this.dispatch({type: `${ActionTypes.UPDATEITEM}${AsyncActionTypes.SUCCESS}`});
+              resolve(data);
+            }
+          })
+          .catch(err => {
+            this.dispatch({type: `${ActionTypes.UPDATEITEM}${AsyncActionTypes.FAILURE}`, payload: {isErrorServer: true}});
+            reject(err);
+          });
+    });
+  }
+
+  //--------------------------UI-WORK-------------------------------------
+
+  onActiveTableItem = (idActiveItem: string) => {
+    this.dispatch({type: `${ActionTypes.ACTIVETABLEITEM}`, payload: idActiveItem});
+  };
+
+  onCheangePath = (nextState: string, colName: string) => {
+    if(colName === CollectionName.FILIAL){
+      this.dispatch({type: `${ActionTypes.ONSTAFFCOL}`, payload: nextState});
+    }
+    if(colName == CollectionName.ORGANITH){
+      this.dispatch({type: `${ActionTypes.ONFILIALCOL}`, payload: nextState});
+    }
+  };
+
+  onChengeStateModalViewAddItem = ( editState: boolean, stateModal: boolean) => {
+    this.dispatch({type: `${ActionTypes.STATEMAODALVIEW}`, payload: {stateModal: stateModal, editState: editState}});
+  };
+
+
 }
-
-
-
-
-
-
-          // fetch('http://localhost:8080/login',
-          // {
-          //     headers: {
-          //       'Accept': 'application/json',
-          //       'Content-Type': 'application/json'
-          //     },
-          //     method: 'POST',
-          //     mode: 'cors',
-          //     body: JSON.stringify({
-          //       login: login,
-          //       password: passowrd
-          //     })
-          //   })
-          //   .then(response => {
-          //     if (response.status === 200) {
-          //       return response.json();
-          //     } else {
-          //       throw 'error';
-          //     }
-          //   })
-          //   .then(data => {
-          //       dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.SUCCESS}`, payload: data});
-          //       if(data.data.authorized === false){
-          //         resolve(false);
-          //       }else{
-          //         sessionStorage.setItem('token', data.data.token);
-          //         sessionStorage.setItem('sess', 'true');
-          //         resolve(true);
-          //       }
-          //   })
-          //   .catch(error => {
-          //     dispatch({type: `${ActionTypes.LOGIN}${AsyncActionTypes.FAILURE}`, payload: error});
-          //   });

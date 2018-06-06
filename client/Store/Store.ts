@@ -17,7 +17,8 @@ export interface IStoreState {
   loadData: Array<Object>;
   loadDataHeder: Object;
   activeTableItem: string;
-  stateModalViewAddNewItem: boolean;
+  stateModalViewEditItem: boolean;
+  stateModalViewEdit: boolean;
   perentOrg: string;
   perentFill: string;
 
@@ -34,7 +35,8 @@ const initialState = {
       loadData: [],
       loadDataHeder: {},
       activeTableItem: '',
-      stateModalViewAddNewItem: false,
+      stateModalViewEditItem: false,
+      stateModalViewEdit: false,
       perentOrg: '',
       perentFill: '',
     }
@@ -89,6 +91,50 @@ export default function reducer (state: IStoreState = initialState.state, action
       isErrorServer: action.payload.isErrorServer ? action.payload.isErrorServer : false,
     };
 
+    //------------------------ADD-NEW-ITEM------------------------------
+
+    case `${ActionTypes.ADDITEM}${AsyncActionTypes.BEGIN}`:
+    return {
+      ...state,
+      loading: true,
+    };
+
+    case `${ActionTypes.ADDITEM}${AsyncActionTypes.SUCCESS}`:
+    return {
+      ...state,
+      loading: false,
+    };
+
+    case `${ActionTypes.ADDITEM}${AsyncActionTypes.FAILURE}`:
+    return {
+      ...state,
+      loading: false,
+      isErrorAccess: action.payload.isErrorAccess ? action.payload.isErrorAccess : false,
+      isErrorServer: action.payload.isErrorServer ? action.payload.isErrorServer : false,
+    };
+
+    //------------------------ADD-UPDATE-ITEM------------------------------
+
+    case `${ActionTypes.UPDATEITEM}${AsyncActionTypes.BEGIN}`:
+    return {
+      ...state,
+      loading: true,
+    };
+
+    case `${ActionTypes.UPDATEITEM}${AsyncActionTypes.SUCCESS}`:
+    return {
+      ...state,
+      loading: false,
+    };
+
+    case `${ActionTypes.UPDATEITEM}${AsyncActionTypes.FAILURE}`:
+    return {
+      ...state,
+      loading: false,
+      isErrorAccess: action.payload.isErrorAccess ? action.payload.isErrorAccess : false,
+      isErrorServer: action.payload.isErrorServer ? action.payload.isErrorServer : false,
+    };
+
     //------------------------LOAD-DATA------------------------------
 
     case `${ActionTypes.ONLOADDATA}${AsyncActionTypes.BEGIN}`:
@@ -124,7 +170,8 @@ export default function reducer (state: IStoreState = initialState.state, action
     case `${ActionTypes.STATEMAODALVIEW}`:
     return {
       ...state,
-      stateModalViewAddNewItem: action.payload,
+      stateModalViewEditItem: action.payload.stateModal,
+      stateModalViewEdit: action.payload.editState,
     };
 
     case `${ActionTypes.ONFILIALCOL}`:

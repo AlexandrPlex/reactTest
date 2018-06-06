@@ -4,10 +4,11 @@ export enum ActionTypes {
   ONLOADDATA = 'ACTION_LOAD_DATA',
   ACTIVETABLEITEM = 'ACTIVE_TABLE_ITEM',
   STATEMAODALVIEW = 'STATE_MODAL_VIEW',
-  ADDNEWITEM = 'ADD_NEW_ITEM',
   ONFILIALCOL = 'ON_FILIAL_COL',
   ONSTAFFCOL = 'ON_STAFF_COL',
   DELETE = 'DELETE',
+  ADDITEM = 'ADD_NEW_ITEM',
+  UPDATEITEM = 'UP_DATA_ITEM'
 }
 
 export enum AsyncActionTypes {
@@ -31,4 +32,6 @@ export enum ServerCall {
 	LOGIN = "login",
   GETDATA = "getData",
   DELETE = "delete",
+  ADDITEM = "setData",
+  UPDATEITEM = "updata"
 }

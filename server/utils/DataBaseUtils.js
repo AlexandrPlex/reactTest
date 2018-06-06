@@ -30,17 +30,21 @@ export function listHederData(collectionName){
 	return OrganithHeder.find({nametable : collectionName});
 }
 
-export function setData(needData, data, perent){
-		const addData = mongoose.model(needData);
+export function setData(collectionName, data, perent){
+		const addData = mongoose.model(collectionName);
 	    const datasave = new addData();
 	    Object.keys(data).map((key)=>{
 	    	datasave[key] = data[key];
 	    });
-	    if(needData!='Organith'){
+	    if(collectionName!='Organith'){
 	    	datasave._idPerent = perent;
 	    }
 
 	    return datasave.save();
+}
+
+export function upData(collectionName, data, id){
+	    return mongoose.model(collectionName).update({_id: id}, data);
 }
 
 export function deleteItem(id, collectionName) {

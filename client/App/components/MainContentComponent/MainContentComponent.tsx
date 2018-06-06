@@ -13,7 +13,7 @@ import {ContextMenu, MenuItem, ContextMenuTrigger} from 'react-contextmenu';
 import HeaderComponent from '../DisplayComponent/HederComponent/HederComponent';
 import TableComponent from '../DisplayComponent/TableComponent/TableComponent';
 import * as Modal from 'react-modal';
-import {AddNewItemViewComponent} from '../DisplayComponent/AddNewItemViewComponent/AddNewItemViewComponent';
+import {EditItemViewComponent} from '../DisplayComponent/AddNewItemViewComponent/EditItemViewComponent';
 
 interface IStateProps {
 	loadData: Array<Object>;
@@ -24,7 +24,8 @@ interface IStateProps {
 	activeTableItem: string;
 	perentOrg: string;
 	perentFill: string;
-	stateModalViewAddNewItem: boolean;
+	stateModalViewEditItem: boolean;
+	stateModalViewEdit: boolean;
 }
 interface IState{
 	collectionName: string;
@@ -95,20 +96,23 @@ class MainContentComponent extends React.PureComponent<TProps, {}> {
 			loadData.call(this);
 		});
 	}
-	onHundleModal = () => {
-		this.props.actions.onChengeStateModalViewAddItem(this.props.stateModalViewAddNewItem ? false : true);
+	onHundleModal = (editState: boolean) => {
+		this.props.actions.onChengeStateModalViewAddItem(editState, this.props.stateModalViewEditItem ? false : true);
 	}
 	onHundleAdd = (addValue: Object) => {
-		this.props.actions.onAddNewItem(this.props.collectionName, addValue, 
+		this.props.actions.onAddNewItem(this.props.collectionName, addValue, sessionStorage.getItem('token'), 
 			this.props.collectionName !== CollectionName.ORGANITH ?
 			this.props.collectionName === CollectionName.FILIAL ? this.props.perentOrg : this.props.perentFill :null
 			).then(()=>{
 				loadData.call(this);
-				this.onHundleModal();
+				this.onHundleModal(false);
 			});
 	}
-	onHundleEdit = () => {
-		
+	onHundleEdit = (addValue: Object) => {
+		this.props.actions.onUpDateItem(this.props.collectionName, addValue, this.props.activeTableItem, sessionStorage.getItem('token'))
+		.then(()=>{
+						loadData.call(this);
+					});
 	}
     render() {
      	return <div>
@@ -128,13 +132,19 @@ class MainContentComponent extends React.PureComponent<TProps, {}> {
 						<MenuItem onClick={this.onHundleMore}>Подробней</MenuItem>
 						<MenuItem onClick={this.onHundleBack}>Назад</MenuItem>
 						<MenuItem onClick={this.onHundleDelete}>Удалить</MenuItem>
-						<MenuItem onClick={this.onHundleEdit}>Редактировать</MenuItem>
-						<MenuItem onClick={this.onHundleModal}>Добавить</MenuItem>
+						<MenuItem onClick={this.onHundleModal.bind(this, true)}>Редактировать</MenuItem>
+						<MenuItem onClick={this.onHundleModal.bind(this, false)}>Добавить</MenuItem>
 					</ContextMenu>
-					<Modal isOpen={this.props.stateModalViewAddNewItem} style={customStyles}>
-					  <AddNewItemViewComponent headerNewItem={this.props.loadDataHeder} 
+					<Modal isOpen={this.props.stateModalViewEditItem} style={customStyles}>
+					  <EditItemViewComponent headerNewItem={this.props.loadDataHeder} 
 					                           onHandleHideAddModalView={this.onHundleModal}
-					                           onHandleAddNewItem={this.onHundleAdd} />
+					                           onHandleAddNewItem={!this.props.stateModalViewEdit ? this.onHundleAdd : this.onHundleEdit}
+					                           editState = {this.props.stateModalViewEdit}
+					                           editData = {this.props.loadData.filter((el: Object)=>{
+					                           		if(this.props.activeTableItem === el['_id']){
+					                           			return el;
+					                           		}
+					                           })[0]} />
 					</Modal>
 				</div>
 				:
@@ -156,7 +166,8 @@ function mapStateToProps(state: IStoreState): IStateProps {
   	activeTableItem: state.activeTableItem,
   	perentOrg: state.perentOrg,
   	perentFill: state.perentFill,
-  	stateModalViewAddNewItem: state.stateModalViewAddNewItem,
+  	stateModalViewEditItem: state.stateModalViewEditItem,
+  	stateModalViewEdit: state.stateModalViewEdit,
   };
 }
 
